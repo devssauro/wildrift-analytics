@@ -42,6 +42,7 @@ def general_stats_query():
             ROUND(AVG(dmg_taken) / (AVG(length_sec) / 60), 0) AS avg_dtpm,
             ROUND(AVG(total_gold) / (AVG(length_sec) / 60), 0) AS avg_gold,
             ROUND(AVG(dmg_dealt) / AVG(total_gold), 2) AS avg_ddpg,
+            ROUND(AVG(dmg_taken) / AVG(total_gold), 2) AS avg_dtpg,
             ROUND(AVG(length_sec), 0) AS AGT,
             ROUND(AVG(
                 CASE winner
@@ -73,10 +74,13 @@ teams = st.sidebar.multiselect('Time', sum(run_query(TEAM_QUERY), ()))
 
 other_df = pd.DataFrame(run_query(general_stats_query()), columns=[
     'pick', 'AVG Kills', 'AVG Deaths', 'AVG Assists', 'AVG KDA',
-    'AVG DDPM', 'AVG DTPM', 'AVG GPM', 'AVG DDPG', 'AGT', 'AGT Win', 'AGT Loss'
+    'AVG DDPM', 'AVG DTPM', 'AVG GPM', 'AVG DDPG', 'AVG DTPG', 'AGT', 'AGT Win', 'AGT Loss'
 ])
 for colum in TIME_COLUMNS:
     other_df[colum] = pd.to_datetime(other_df[colum], unit='s').dt.strftime("%M:%S")
     other_df[colum] = other_df[colum].replace(np.nan, '-')
+other_df['AVG KDA'] = (other_df['AVG Kills'] + other_df['AVG Assists']) / other_df['AVG Deaths']
+other_df['DDPG'] = other_df['AVG DDPM'] / other_df['AVG GPM']
+other_df['DTPG'] = other_df['AVG DTPM'] / other_df['AVG GPM']
 other_df.style.format(precision=2)
 st.dataframe(other_df.style.format(precision=2).format(subset=INT_COLUMNS, formatter='{:.0f}'), height=550)
