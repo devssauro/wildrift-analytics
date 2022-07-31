@@ -10,5 +10,7 @@ st.markdown(
     Este é um sistema de testes do Streamlit com dados do competitivo do Wild Rift
     ### Navegue entre as páginas
     -  Champion General Stats
+    -  Player General Stats
+    -  Team General Stats
 """
 )
