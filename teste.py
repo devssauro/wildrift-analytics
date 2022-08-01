@@ -5,7 +5,6 @@ connection = connect(':memory:')
 cursor = connection.cursor()
 
 csv_url = 'https://wrflask.dinossauro.dev/v1/download/picks_bans?t=7&winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-my_df = pd.read_csv(csv_url)
 PATCHES_QUERY = "SELECT DISTINCT patch FROM my_df"
 PHASES_QUERY = "SELECT DISTINCT phase FROM my_df"
 sql = """

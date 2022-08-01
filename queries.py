@@ -1,10 +1,10 @@
-PATCHES_QUERY = "SELECT DISTINCT patch FROM my_df"
-PHASES_QUERY = "SELECT DISTINCT phase FROM my_df"
-TEAM_QUERY = "SELECT DISTINCT team_tag FROM my_df"
-ROLE_QUERY = "SELECT DISTINCT role FROM my_df"
+PATCHES_QUERY = "SELECT DISTINCT patch FROM individual_df"
+PHASES_QUERY = "SELECT DISTINCT phase FROM individual_df"
+TEAM_QUERY = "SELECT DISTINCT team_tag FROM individual_df"
+ROLE_QUERY = "SELECT DISTINCT role FROM individual_df"
 
 
-def general_stats_query(patches=[], phases=[], teams=[], roles=[], columns='pick', is_team=False):
+def general_stats_query(patches=[], phases=[], teams=[], roles=[], columns='pick', is_team=False, df='individual_df'):
     where_clause = 'WHERE'
     if len(patches) == 1:
         where_clause = f"{where_clause} patch = '{patches[0]}'"
@@ -68,7 +68,7 @@ def general_stats_query(patches=[], phases=[], teams=[], roles=[], columns='pick
                         ELSE null
                     END
                 ), 0) AS AGT_LOSS
-            FROM my_df
+            FROM {df}
             {where_clause if where_clause != 'WHERE' else ''}
             GROUP BY {columns}
         """

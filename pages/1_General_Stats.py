@@ -15,8 +15,12 @@ st.set_page_config(
 
 connection = connect(':memory:')
 cursor = connection.cursor()
-my_df = pd.read_csv(
+individual_df = pd.read_csv(
     'https://wrflask.dinossauro.dev/v1/download/picks_bans'
+    '?t=7&winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
+)
+teams_df = pd.read_csv(
+    'https://wrflask.dinossauro.dev/v1/download/match_stats'
     '?t=7&winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
 )
 
@@ -41,7 +45,8 @@ roles = st.sidebar.multiselect('Role', sum(run_query(ROLE_QUERY), ()))
 
 with team_tab:
     team_df = pd.DataFrame(
-        run_query(general_stats_query(patches=patches, phases=phases, columns='team_name, team_tag', is_team=True)),
+        run_query(general_stats_query(patches=patches, phases=phases,
+                                      columns='team_name, team_tag', is_team=True, df='teams_df')),
         columns=[
             'team', 'tag', 'QTY Games', '%WR', 'QTY Blue', '%WR Blue', 'QTY Red', '%WR Red', 'AGT', 'AGT Win',
             'AGT Loss'
