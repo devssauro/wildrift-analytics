@@ -82,11 +82,11 @@ def general_stats_query(
                        f" role IN {tuple(roles)}"
     if len(tournaments) == 1:
         where_clause = f"{where_clause} " \
-                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
                        f" tournament = '{tournaments[0]}'"
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
-                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
                        f" tournament IN {tuple(tournaments)}"
     individual_stats = """
         ROUND(AVG(kills), 2) AS avg_kills, 
