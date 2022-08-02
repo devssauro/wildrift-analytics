@@ -88,6 +88,7 @@ def general_stats_query(
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
                        f" tournament IN {tuple(tournaments)}"
+
     individual_stats = """
         ROUND(AVG(kills), 2) AS avg_kills, 
         ROUND(AVG(deaths), 2) AS avg_deaths, 
