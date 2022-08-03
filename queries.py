@@ -1,8 +1,167 @@
-TOURNAMENT_QUERY = "SELECT DISTINCT tournament from individual_df"
-PATCHES_QUERY = "SELECT DISTINCT patch FROM individual_df WHERE patch is not null"
-PHASES_QUERY = "SELECT DISTINCT phase FROM individual_df"
-TEAM_QUERY = "SELECT DISTINCT team_tag FROM individual_df"
-ROLE_QUERY = "SELECT DISTINCT role FROM individual_df"
+import pandas as pd
+
+picks_bans_df = pd.read_csv(
+    'https://wrflask.dinossauro.dev/v1/download/picks_bans'
+    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
+)
+match_stats_df = pd.read_csv(
+    'https://wrflask.dinossauro.dev/v1/download/match_stats'
+    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
+)
+champion_df = pd.read_csv('champion.csv')
+
+TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"
+PATCHES_QUERY = "SELECT DISTINCT patch FROM picks_bans_df WHERE patch is not null"
+PHASES_QUERY = "SELECT DISTINCT phase FROM picks_bans_df"
+TEAM_QUERY = "SELECT DISTINCT team_tag FROM picks_bans_df"
+ROLE_QUERY = "SELECT DISTINCT role FROM picks_bans_df"
+
+
+def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament = '{tournaments[0]}'"
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament IN {tuple(tournaments)}"
+    return f"""
+        SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
+    """
+
+
+def prio_query(patches=None, phases=None, teams=None, tournaments=None):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament = '{tournaments[0]}'"
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament IN {tuple(tournaments)}"
+    return f"""
+        SELECT
+            side, 
+            pick_rotation, 
+            role, 
+            COUNT(role) AS total, 
+            SUM(winner) AS total_win
+        FROM picks_bans_df {where_clause if where_clause != 'WHERE' else ''}
+        GROUP BY side, pick_rotation, role
+        ORDER BY side, pick_rotation, role DESC
+    """
+
+
+def blind_response_query(patches=None, phases=None, teams=None, tournaments=None):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament = '{tournaments[0]}'"
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" tournament IN {tuple(tournaments)}"
+    return f"""
+        SELECT
+            side, 
+            pick_rotation, 
+            role, 
+            SUM(is_blind) AS total_blind, 
+            SUM(is_blind AND winner) AS win_blind, 
+            SUM(is_blind = false) AS total_response, 
+            SUM(is_blind = false AND winner) AS win_response
+        FROM picks_bans_df {where_clause if where_clause != 'WHERE' else ''}
+        GROUP BY side, pick_rotation, role
+        ORDER BY side, pick_rotation, role DESC
+    """
 
 
 def patches_query(tournaments=None):
@@ -40,7 +199,8 @@ def teams_query(tournaments=None):
 
 def general_stats_query(
         patches=None, phases=None, teams=None, roles=None, tournaments=None,
-        columns='pick', is_team=False, df='individual_df'):
+        columns='pick', is_team=False, df='picks_bans_df'):
+
     if tournaments is None:
         tournaments = []
     if roles is None:

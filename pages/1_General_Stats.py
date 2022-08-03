@@ -1,6 +1,10 @@
 from datetime import timedelta
 from shillelagh.backends.apsw.db import connect
-from queries import patches_query, phases_query, ROLE_QUERY, teams_query, TOURNAMENT_QUERY, general_stats_query
+from queries import (
+    patches_query, phases_query, teams_query,
+    ROLE_QUERY, TOURNAMENT_QUERY, general_stats_query,
+    picks_bans_df, match_stats_df
+)
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -13,15 +17,6 @@ st.set_page_config(
 
 connection = connect(':memory:')
 cursor = connection.cursor()
-individual_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/picks_bans'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-)
-teams_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/match_stats'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-)
-champion_df = pd.read_csv('champion.csv')
 
 st.title("General stats")
 INDIVIDUAL_COLUMNS = ['AVG DDPM', 'AVG DTPM', 'AVG GPM']
@@ -47,7 +42,7 @@ roles = st.sidebar.multiselect('Role', sum(run_query(ROLE_QUERY), ()))
 with team_tab:
     team_df = pd.DataFrame(
         run_query(general_stats_query(patches=patches, phases=phases, tournaments=tournaments,
-                                      columns='team_name, team_tag', is_team=True, df='teams_df')),
+                                      columns='team_name, team_tag', is_team=True, df='match_stats_df')),
         columns=[
             'team', 'tag', 'QTY Games', '%WR', 'QTY Blue', '%WR Blue', 'QTY Red', '%WR Red', 'AGT', 'AGT Win',
             'AGT Loss'
