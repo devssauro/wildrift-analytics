@@ -58,10 +58,7 @@ def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament IN ('{format_tournament_tuple(tournaments)}')"
-    print(f"""
-        SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
-    """)
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
     return f"""
         SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
     """
@@ -155,7 +152,7 @@ def blind_response_query(patches=None, phases=None, teams=None, tournaments=None
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament IN {tuple(tournaments)}"
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
     return f"""
         SELECT
             side, 
@@ -254,7 +251,7 @@ def general_stats_query(
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
-                       f" tournament IN {tuple(tournaments)}"
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
 
     individual_stats = """
         ROUND(AVG(kills), 2) AS avg_kills, 
