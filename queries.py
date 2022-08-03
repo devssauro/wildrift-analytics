@@ -54,7 +54,7 @@ def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
     if len(tournaments) == 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament = '{tournaments[0]}'"
+                       f' tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
@@ -97,7 +97,7 @@ def prio_query(patches=None, phases=None, teams=None, tournaments=None):
     if len(tournaments) == 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament = '{tournaments[0]}'"
+                       f' tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
@@ -148,7 +148,7 @@ def blind_response_query(patches=None, phases=None, teams=None, tournaments=None
     if len(tournaments) == 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament = '{tournaments[0]}'"
+                       f' tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
@@ -173,7 +173,7 @@ def patches_query(tournaments=None):
         tournaments = []
 
     if len(tournaments) == 1:
-        return f"{PATCHES_QUERY} AND tournament = '{tournaments[0]}'"
+        return f'{PATCHES_QUERY} AND tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         return f'{PATCHES_QUERY} AND tournament IN ("{format_tournament_tuple(tournaments)}")'
     return PATCHES_QUERY
@@ -184,7 +184,7 @@ def phases_query(tournaments=None):
         tournaments = []
 
     if len(tournaments) == 1:
-        return f"{PHASES_QUERY} WHERE tournament = '{tournaments[0]}'"
+        return f'{PHASES_QUERY} WHERE tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         return f'{PHASES_QUERY} WHERE tournament IN ("{format_tournament_tuple(tournaments)}")'
     return PHASES_QUERY
@@ -195,7 +195,7 @@ def teams_query(tournaments=None):
         tournaments = []
 
     if len(tournaments) == 1:
-        return f"{TEAM_QUERY} WHERE tournament = '{tournaments[0]}'"
+        return f'{TEAM_QUERY} WHERE tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         return f'{TEAM_QUERY} WHERE tournament IN ("{format_tournament_tuple(tournaments)}")'
     return TEAM_QUERY
@@ -247,7 +247,7 @@ def general_stats_query(
     if len(tournaments) == 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
-                       f" tournament = '{tournaments[0]}'"
+                       f' tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
