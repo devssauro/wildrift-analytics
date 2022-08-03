@@ -17,6 +17,10 @@ TEAM_QUERY = "SELECT DISTINCT team_tag FROM picks_bans_df"
 ROLE_QUERY = "SELECT DISTINCT role FROM picks_bans_df"
 
 
+def format_tournament_tuple(tournaments):
+    return '", "'.join(tournaments)
+
+
 def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
     if tournaments is None:
         tournaments = []
@@ -54,7 +58,10 @@ def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament IN {tuple(tournaments)}"
+                       f" tournament IN ('{format_tournament_tuple(tournaments)}')"
+    print(f"""
+        SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
+    """)
     return f"""
         SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
     """
@@ -97,7 +104,7 @@ def prio_query(patches=None, phases=None, teams=None, tournaments=None):
     if len(tournaments) > 1:
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
-                       f" tournament IN {tuple(tournaments)}"
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
     return f"""
         SELECT
             side, 
@@ -171,7 +178,7 @@ def patches_query(tournaments=None):
     if len(tournaments) == 1:
         return f"{PATCHES_QUERY} AND tournament = '{tournaments[0]}'"
     if len(tournaments) > 1:
-        return f"{PATCHES_QUERY} AND tournament IN '{tuple(tournaments)}'"
+        return f'{PATCHES_QUERY} AND tournament IN ("{format_tournament_tuple(tournaments)}")'
     return PATCHES_QUERY
 
 
@@ -182,7 +189,7 @@ def phases_query(tournaments=None):
     if len(tournaments) == 1:
         return f"{PHASES_QUERY} WHERE tournament = '{tournaments[0]}'"
     if len(tournaments) > 1:
-        return f"{PHASES_QUERY} WHERE tournament IN '{tuple(tournaments)}'"
+        return f'{PHASES_QUERY} WHERE tournament IN ("{format_tournament_tuple(tournaments)}")'
     return PHASES_QUERY
 
 
@@ -193,7 +200,7 @@ def teams_query(tournaments=None):
     if len(tournaments) == 1:
         return f"{TEAM_QUERY} WHERE tournament = '{tournaments[0]}'"
     if len(tournaments) > 1:
-        return f"{TEAM_QUERY} WHERE tournament IN '{tuple(tournaments)}'"
+        return f'{TEAM_QUERY} WHERE tournament IN ("{format_tournament_tuple(tournaments)}")'
     return TEAM_QUERY
 
 
