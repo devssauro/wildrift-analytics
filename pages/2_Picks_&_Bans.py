@@ -2,9 +2,10 @@ from datetime import timedelta
 from shillelagh.backends.apsw.db import connect
 from queries import (
     patches_query, phases_query, teams_query,
-    ROLE_QUERY, TOURNAMENT_QUERY,
+    ROLE_QUERY, TOURNAMENT_QUERY, CHAMPION_ROLE_QUERY,
     prio_query, blind_response_query,
-    match_stats_df, picks_bans_df, total_games_query
+    match_stats_df, picks_bans_df, total_games_query,
+    picks_bans_query, presence_query
 )
 import streamlit as st
 import pandas as pd
@@ -49,7 +50,7 @@ def prio_percent_wr(picks: int, games: int, side: str, rotation: str, role: str)
         return f'{round((games / picks) * 100, 2)}%'
 
 
-general_tab, picks_tab, bans_tab, presence_tab = st.tabs(["Geral", "Picks", "Bans", "Prsença"])
+general_tab, picks_bans_tab, presence_tab = st.tabs(["Geral", "Picks & Bans", "Presença"])
 
 tournaments = st.sidebar.multiselect(
     'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()), ['VG Open 2022'])
@@ -260,3 +261,99 @@ with general_tab:
         st.dataframe(blind_wr_df)
         st.title('Win rate')
         st.dataframe(response_wr_df)
+
+with picks_bans_tab:
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.title('Pick blue')
+        pick_blue_df = pd.DataFrame(
+            run_query(picks_bans_query(
+                patches=patches, phases=phases, tournaments=tournaments)),
+            columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
+        )
+        pick_blue_df['%WR'] = (pick_blue_df['Qty win'] / pick_blue_df['Qty Pick']) * 100
+        st.dataframe(pick_blue_df.style.format(precision=2))
+    with col2:
+        st.title('Pick red')
+        pick_red_df = pd.DataFrame(
+            run_query(picks_bans_query(
+                patches=patches, phases=phases, tournaments=tournaments, side='red')),
+            columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
+        )
+        pick_red_df['%WR'] = (pick_red_df['Qty win'] / pick_red_df['Qty Pick']) * 100
+        st.dataframe(pick_red_df.style.format(precision=2))
+    with col3:
+        st.title('Ban blue')
+        ban_blue_df = pd.DataFrame(
+            run_query(picks_bans_query(
+                patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban')),
+            columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
+        )
+        ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
+        st.dataframe(ban_blue_df.style.format(precision=2))
+    with col4:
+        st.title('Ban red')
+        ban_blue_df = pd.DataFrame(
+            run_query(picks_bans_query(
+                patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban', side='red')),
+            columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
+        )
+        ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
+        st.dataframe(ban_blue_df.style.format(precision=2))
+
+with presence_tab:
+    champions = pd.DataFrame(run_query(CHAMPION_ROLE_QUERY), columns=['pick', 'role']).T.to_dict().values()
+    pick_presence = pd.DataFrame(
+        run_query(presence_query(
+            patches=patches, phases=phases, tournaments=tournaments)),
+        columns=['pick', 'role', 'qty_picks', 'qty_win']
+    )
+    pick_dict = pick_presence.T.to_dict().values()
+
+    ban_presence = pd.DataFrame(
+        run_query(presence_query(
+            patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban')),
+        columns=['ban', 'role', 'qty_bans', 'qty_win']
+    )
+    ban_dict = ban_presence.T.to_dict().values()
+    # st.write(ban_dict)
+    total_games = run_query(total_games_query(patches=patches, phases=phases, tournaments=tournaments))[0][0]
+    roles = ['baron', 'jungle', 'mid', 'dragon', 'sup']
+    data = {r: [] for r in roles}
+    for c in champions:
+        pick_presence = [row for row in pick_dict if row['role'] == c['role'] and row['pick'] == c['pick']]
+        win_presence = [row for row in pick_dict if row['role'] == c['role'] and row['pick'] == c['pick']]
+        ban_presence = [row for row in ban_dict if row['ban'] == c['pick']]
+        if len(pick_presence) > 0 or len(ban_presence):
+            qty_picks = 0 if len(pick_presence) == 0 else pick_presence[0]['qty_picks']
+            qty_win = 0 if len(win_presence) == 0 else win_presence[0]['qty_win']
+            qty_bans = 0 if len(ban_presence) == 0 else ban_presence[0]['qty_bans']
+            qty_presence = qty_picks + qty_bans
+            _temp = {
+                'champion': c['pick'],
+                'picks': qty_picks,
+                'bans': qty_bans,
+                'win': qty_win,
+                'presence': qty_presence,
+                '%win': np.nan if qty_picks == 0 else round((qty_win / qty_picks) * 100, 2),
+                '%pres': np.nan if qty_presence == 0 else round((qty_presence / total_games) * 100, 2),
+            }
+            if c['role'] is not None:
+                data[c['role']].append({**_temp, 'presence': _temp['picks'] + _temp['bans']})
+    baron, jungle, mid, dragon, sup = st.columns(len(roles))
+    with baron:
+        baron_df = pd.DataFrame(data['baron'])
+        st.dataframe(baron_df.style.format(precision=2))
+    with jungle:
+        jungle_df = pd.DataFrame(data['jungle'])
+        st.dataframe(jungle_df.style.format(precision=2))
+    with mid:
+        mid_df = pd.DataFrame(data['mid'])
+        st.dataframe(mid_df.style.format(precision=2))
+    with dragon:
+        dragon_df = pd.DataFrame(data['dragon'])
+        st.dataframe(dragon_df.style.format(precision=2))
+    with sup:
+        sup_df = pd.DataFrame(data['sup'])
+        st.dataframe(sup_df.style.format(precision=2))

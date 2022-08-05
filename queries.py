@@ -16,6 +16,8 @@ PHASES_QUERY = "SELECT DISTINCT phase FROM picks_bans_df"
 TEAM_QUERY = "SELECT DISTINCT team_tag FROM picks_bans_df"
 ROLE_QUERY = "SELECT DISTINCT role FROM picks_bans_df"
 
+CHAMPION_ROLE_QUERY = "SELECT DISTINCT pick, role FROM picks_bans_df ORDER BY pick"
+
 
 def format_tournament_tuple(tournaments):
     return '", "'.join(tournaments)
@@ -61,6 +63,92 @@ def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
                        f' tournament IN ("{format_tournament_tuple(tournaments)}")'
     return f"""
         SELECT COUNT(map_id) / 2 FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
+    """
+
+
+def presence_query(patches=None, phases=None, teams=None, tournaments=None, pick_ban='pick'):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f' tournament = "{tournaments[0]}"'
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
+    return f"""
+        SELECT 
+            {pick_ban}, role, COUNT({pick_ban}) AS qty_{pick_ban}, SUM(winner) AS qty_win
+        FROM picks_bans_df {where_clause if where_clause != 'WHERE' else ''}
+        GROUP BY {pick_ban}, role
+        ORDER BY {pick_ban}
+    """
+
+
+def picks_bans_query(patches=None, phases=None, teams=None, tournaments=None, pick_ban='pick', side='blue'):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = f"WHERE side = '{side}'"
+    if len(patches) == 1:
+        where_clause = f"{where_clause} AND patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} AND patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause}  AND phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} AND phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} AND team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} AND team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f'{where_clause} AND tournament = "{tournaments[0]}"'
+    if len(tournaments) > 1:
+        where_clause = f'{where_clause} AND tournament IN ("{format_tournament_tuple(tournaments)}")'
+    return f"""
+        SELECT 
+            {pick_ban},
+            {pick_ban}_rotation,
+            COUNT({pick_ban}) AS qty_{pick_ban},
+            SUM(winner) as qty_win
+        FROM picks_bans_df
+        {where_clause if where_clause != 'WHERE' else f"WHERE side = '{side}'"}
+        GROUP BY {pick_ban}, {pick_ban}_rotation, side
+        ORDER BY side, {pick_ban}_rotation, COUNT({pick_ban}) DESC, {pick_ban}
     """
 
 
