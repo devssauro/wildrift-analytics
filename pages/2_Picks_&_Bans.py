@@ -343,17 +343,22 @@ with presence_tab:
                 data[c['role']].append({**_temp, 'presence': _temp['picks'] + _temp['bans']})
     baron, jungle, mid, dragon, sup = st.columns(len(roles))
     with baron:
+        st.title('Baron')
         baron_df = pd.DataFrame(data['baron'])
         st.dataframe(baron_df.style.format(precision=2))
     with jungle:
+        st.title('Jungle')
         jungle_df = pd.DataFrame(data['jungle'])
         st.dataframe(jungle_df.style.format(precision=2))
     with mid:
+        st.title('Mid')
         mid_df = pd.DataFrame(data['mid'])
         st.dataframe(mid_df.style.format(precision=2))
     with dragon:
+        st.title('Dragon')
         dragon_df = pd.DataFrame(data['dragon'])
         st.dataframe(dragon_df.style.format(precision=2))
     with sup:
+        st.title('Sup')
         sup_df = pd.DataFrame(data['sup'])
         st.dataframe(sup_df.style.format(precision=2))
