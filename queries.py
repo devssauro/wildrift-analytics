@@ -107,7 +107,7 @@ def champion_matchup_query(
            {role}_pick AS pick,
            '{role}' AS role,
            COUNT({role}_pick) AS qty_pick,
-           SUM(winner) as qty_win
+           SUM({'NOT' if against else ''} winner) as qty_win
         FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
         GROUP BY {role}_pick"""
 
