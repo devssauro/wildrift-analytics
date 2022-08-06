@@ -20,7 +20,7 @@ st.set_page_config(
 connection = connect(':memory:')
 cursor = connection.cursor()
 
-st.title("Champion stats")
+st.title("Player stats")
 INDIVIDUAL_COLUMNS = ['AVG DDPM', 'AVG DTPM', 'AVG GPM']
 INT_COLUMNS = ['QTY Games', 'QTY Blue', 'QTY Red']
 TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
