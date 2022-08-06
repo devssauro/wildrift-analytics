@@ -23,6 +23,170 @@ def format_tournament_tuple(tournaments):
     return '", "'.join(tournaments)
 
 
+def format_role_coluns_tuple(roles):
+    return ', '.join([f'{r}_pick' for r in roles])
+
+
+def role_query(champion):
+    return f"SELECT DISTINCT role FROM picks_bans_df WHERE pick = '{champion}'"
+
+
+def champion_matchup_query(
+        patches=None, phases=None, teams=None, roles=None, tournaments=None,
+        champion=None, player=None, role=None, maps=None, against=True, selected_roles=None):
+
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    if selected_roles is None:
+        selected_roles = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        _ = len(patches) + len(phases)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        _ = len(patches) + len(phases)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        _ = len(patches) + len(phases) + len(teams)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' tournament = "{tournaments[0]}"'
+    if len(tournaments) > 1:
+        _ = len(patches) + len(phases) + len(teams)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
+    if len(maps) == 1:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' map_id = "{maps[0]}"'
+    if len(maps) > 1:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' map_id IN {tuple(maps)}'
+    if len(selected_roles) == 1 and not against:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments) + len(maps)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' "{champion}" = {selected_roles[0]}_pick'
+    if len(selected_roles) > 1 and not against:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments) + len(maps)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' "{champion}" IN ({format_role_coluns_tuple(selected_roles)})'
+    if player is not None:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 else ''}" \
+                       f' player = "{player}"'
+    if against:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 or champion is not None else ''}" \
+                       f' {role}_pick != "{champion}"'
+    else:
+        _ = len(patches) + len(phases) + len(teams) + len(tournaments)
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if _ > 0 or champion is not None else ''}" \
+                       f' {role}_pick !=  "{champion}"'
+
+    return f"""
+        SELECT 
+           {role}_pick AS pick,
+           '{role}' AS role,
+           COUNT({role}_pick) AS qty_pick,
+           SUM(winner) as qty_win
+        FROM match_stats_df {where_clause if where_clause != 'WHERE' else ''}
+        GROUP BY {role}_pick"""
+
+
+def champion_maps_query(
+        patches=None, phases=None, teams=None, roles=None, tournaments=None,
+        champion=None, player=None):
+
+    if tournaments is None:
+        tournaments = []
+    if roles is None:
+        roles = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(roles) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" role = '{roles[0]}'"
+    if len(roles) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f" role IN {tuple(roles)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
+                       f' tournament = "{tournaments[0]}"'
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
+    if champion is not None:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) + len(tournaments) > 0 else ''}" \
+                       f" pick = '{champion}'"
+    if player is not None:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) + len(tournaments) > 0 else ''}" \
+                       f' player = "{player}"'
+
+    return f"SELECT DISTINCT map_id FROM picks_bans_df {where_clause if where_clause != 'WHERE' else ''}"
+
+
 def total_games_query(patches=None, phases=None, teams=None, tournaments=None):
     if tournaments is None:
         tournaments = []
@@ -291,7 +455,7 @@ def teams_query(tournaments=None):
 
 def general_stats_query(
         patches=None, phases=None, teams=None, roles=None, tournaments=None,
-        columns='pick', is_team=False, df='picks_bans_df'):
+        columns='pick', is_team=False, df='picks_bans_df', champion=None, player=None):
 
     if tournaments is None:
         tournaments = []
@@ -340,6 +504,14 @@ def general_stats_query(
         where_clause = f"{where_clause} " \
                        f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) > 0 else ''}" \
                        f' tournament IN ("{format_tournament_tuple(tournaments)}")'
+    if champion is not None:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) + len(tournaments) > 0 else ''}" \
+                       f" pick = '{champion}'"
+    if player is not None:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) + len(roles) + len(tournaments) > 0 else ''}" \
+                       f' player = "{player}"'
 
     individual_stats = """
         ROUND(AVG(kills), 2) AS avg_kills, 
