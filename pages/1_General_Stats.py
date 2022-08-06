@@ -40,6 +40,7 @@ teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), 
 roles = st.sidebar.multiselect('Role', sum(run_query(ROLE_QUERY), ()))
 
 with team_tab:
+
     team_df = pd.DataFrame(
         run_query(general_stats_query(patches=patches, phases=phases, tournaments=tournaments,
                                       columns='team_name, team_tag', is_team=True, df='match_stats_df')),
@@ -57,7 +58,13 @@ with team_tab:
         team_df[colum] = pd.to_datetime(team_df[colum], unit='s').dt.strftime("%M:%S")
         team_df[colum] = team_df[colum].replace(np.nan, '-')
     team_df.style.format(precision=2)
-    st.dataframe(team_df.style.format(precision=2).format(subset=INT_COLUMNS, formatter='{:.0f}'))
+    col1, col2, col3, col4 = st.columns(4)
+    team_column1 = col1.selectbox('Column 1', team_df.keys(), 0, key='team_select_col_1')
+    team_sort1 = col2.selectbox('Sort column 1', ['ASC', 'DESC'], key='team_select_sort_1')
+    team_column2 = col3.selectbox('Column 2', [c for c in team_df.keys() if c != team_column1], 0, key='team_select_col_2')
+    team_sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='team_select_sort_2')
+    team_df.sort_values([team_column1, team_column2], ascending=[team_sort1 == 'ASC', team_sort2 == 'ASC'], inplace=True)
+    st.table(team_df.style.format(precision=2).format(subset=INT_COLUMNS, formatter='{:.0f}'))
 
 with player_tab:
     player_df = pd.DataFrame(
@@ -75,9 +82,15 @@ with player_tab:
     player_df['AVG DDPG'] = player_df['AVG DDPM'] / player_df['AVG GPM']
     player_df['AVG DTPG'] = player_df['AVG DTPM'] / player_df['AVG GPM']
     player_df.style.format(precision=2)
-    st.dataframe(
+    col1, col2, col3, col4 = st.columns(4)
+    column1 = col1.selectbox('Column 1', player_df.keys(), key='player_select_col_1')
+    sort1 = col2.selectbox('Sort column 1', ['ASC', 'DESC'], key='player_select_sort_1')
+    column2 = col3.selectbox('Column 2', [c for c in player_df.keys() if c != column1], 0, key='player_select_col_2')
+    sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='player_select_sort_2')
+    player_df.sort_values([column1, column2], ascending=[sort1 == 'ASC', sort2 == 'ASC'], inplace=True)
+    st.table(
         player_df.style.format(precision=2).format(subset=[*INT_COLUMNS, *INDIVIDUAL_COLUMNS],
-                                                   formatter='{:.0f}'), height=550)
+                                                   formatter='{:.0f}'))
 
 with champion_tab:
     champion_df = pd.DataFrame(run_query(general_stats_query(patches, phases, teams, roles, tournaments)), columns=[
@@ -93,5 +106,10 @@ with champion_tab:
     champion_df['AVG DDPG'] = champion_df['AVG DDPM'] / champion_df['AVG GPM']
     champion_df['AVG DTPG'] = champion_df['AVG DTPM'] / champion_df['AVG GPM']
     champion_df.style.format(precision=2)
-    st.dataframe(champion_df.style.format(precision=2).format(subset=[*INT_COLUMNS, *INDIVIDUAL_COLUMNS],
-                                                              formatter='{:.0f}'), height=550)
+    col1, col2, col3, col4 = st.columns(4)
+    column1 = col1.selectbox('Column 1', champion_df.keys(), key='champion_select_col_1')
+    sort1 = col2.selectbox('Sort column 1', ['ASC', 'DESC'], key='champion_select_sort_1')
+    column2 = col3.selectbox('Column 2', [c for c in champion_df.keys() if c != column1], 0, key='champion_select_col_2')
+    sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='champion_select_sort_2')
+    champion_df.sort_values([column1, column2], ascending=[sort1 == 'ASC', sort2 == 'ASC'], inplace=True)
+    st.table(champion_df.style.format(precision=2).format(subset=[*INT_COLUMNS, *INDIVIDUAL_COLUMNS], formatter='{:.0f}'))

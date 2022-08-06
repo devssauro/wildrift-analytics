@@ -249,18 +249,18 @@ with general_tab:
 
     with col1:
         st.title('Pick rate')
-        st.dataframe(pr_df)
+        st.table(pr_df)
         st.title('Blind rate')
-        st.dataframe(blind_df)
+        st.table(blind_df)
         st.title('Response rate')
-        st.dataframe(response_df)
+        st.table(response_df)
     with col2:
         st.title('Win rate')
-        st.dataframe(wr_df)
+        st.table(wr_df)
         st.title('Win rate')
-        st.dataframe(blind_wr_df)
+        st.table(blind_wr_df)
         st.title('Win rate')
-        st.dataframe(response_wr_df)
+        st.table(response_wr_df)
 
 with picks_bans_tab:
     col1, col2, col3, col4 = st.columns(4)
@@ -273,7 +273,7 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_blue_df['%WR'] = (pick_blue_df['Qty win'] / pick_blue_df['Qty Pick']) * 100
-        st.dataframe(pick_blue_df.style.format(precision=2))
+        st.table(pick_blue_df.style.format(precision=2))
     with col2:
         st.title('Pick red')
         pick_red_df = pd.DataFrame(
@@ -282,7 +282,7 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_red_df['%WR'] = (pick_red_df['Qty win'] / pick_red_df['Qty Pick']) * 100
-        st.dataframe(pick_red_df.style.format(precision=2))
+        st.table(pick_red_df.style.format(precision=2))
     with col3:
         st.title('Ban blue')
         ban_blue_df = pd.DataFrame(
@@ -291,7 +291,7 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
-        st.dataframe(ban_blue_df.style.format(precision=2))
+        st.table(ban_blue_df.style.format(precision=2))
     with col4:
         st.title('Ban red')
         ban_blue_df = pd.DataFrame(
@@ -300,7 +300,7 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
-        st.dataframe(ban_blue_df.style.format(precision=2))
+        st.table(ban_blue_df.style.format(precision=2))
 
 with presence_tab:
     champions = pd.DataFrame(run_query(CHAMPION_ROLE_QUERY), columns=['pick', 'role']).T.to_dict().values()
