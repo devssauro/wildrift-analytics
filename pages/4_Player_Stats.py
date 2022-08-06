@@ -97,10 +97,6 @@ with matchup_tab:
     pick_column2 = col3.selectbox('Column 2', [c for c in sort_columns if c != pick_column1], key='pick_select_col_2')
     pick_sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='pick_select_sort_2')
     for _role in all_roles:
-        # col1.write(champion_matchup_query(
-        #     patches, phases, teams, tournaments, champion, role=_role, maps=maps))
-        # col2.write(champion_matchup_query(
-        #     patches, phases, teams, tournaments, champion, role=_role, maps=maps, against=False))
         temp_against = pd.DataFrame(run_query(champion_matchup_query(
             patches, phases, teams, tournaments, champion, role=_role, maps=maps)),
             columns=['Pick', 'Role', 'Qty Pick', 'Qty Win']
