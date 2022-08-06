@@ -264,6 +264,13 @@ with general_tab:
 
 with picks_bans_tab:
     col1, col2, col3, col4 = st.columns(4)
+    sorteable_columns = ['Pick', 'Qty Pick', 'Qty win', '%WR']
+    pb_column1 = col1.selectbox('Column 1', sorteable_columns, key='pb_select_col_1')
+    pb_sort1 = col2.selectbox('Sort column 1', ['ASC', 'DESC'], key='pb_select_sort_1')
+    pb_column2 = col3.selectbox('Column 2', [c for c in sorteable_columns if c != pb_column1], key='pb_select_col_2')
+    pb_sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='pb_select_sort_2')
+    # player_df.sort_values([player_column1, player_column2],
+    #                       ascending=[player_sort1 == 'ASC', player_sort2 == 'ASC'], inplace=True)
 
     with col1:
         st.title('Pick blue')
@@ -273,6 +280,8 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_blue_df['%WR'] = (pick_blue_df['Qty win'] / pick_blue_df['Qty Pick']) * 100
+        pick_blue_df.sort_values(['Rotation', pb_column1, pb_column2],
+                                 ascending=[True, pb_sort1 == 'ASC', pb_sort2 == 'ASC'], inplace=True)
         st.table(pick_blue_df.style.format(precision=2))
     with col2:
         st.title('Pick red')
@@ -282,6 +291,8 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_red_df['%WR'] = (pick_red_df['Qty win'] / pick_red_df['Qty Pick']) * 100
+        pick_red_df.sort_values(['Rotation', pb_column1, pb_column2],
+                                 ascending=[True, pb_sort1 == 'ASC', pb_sort2 == 'ASC'], inplace=True)
         st.table(pick_red_df.style.format(precision=2))
     with col3:
         st.title('Ban blue')
@@ -291,16 +302,20 @@ with picks_bans_tab:
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
+        ban_blue_df.sort_values(['Rotation', pb_column1, pb_column2],
+                                 ascending=[True, pb_sort1 == 'ASC', pb_sort2 == 'ASC'], inplace=True)
         st.table(ban_blue_df.style.format(precision=2))
     with col4:
         st.title('Ban red')
-        ban_blue_df = pd.DataFrame(
+        ban_red_df = pd.DataFrame(
             run_query(picks_bans_query(
                 patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban', side='red')),
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
-        ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
-        st.table(ban_blue_df.style.format(precision=2))
+        ban_red_df['%WR'] = (ban_red_df['Qty win'] / ban_red_df['Qty Pick']) * 100
+        ban_red_df.sort_values(['Rotation', pb_column1, pb_column2],
+                               ascending=[True, pb_sort1 == 'ASC', pb_sort2 == 'ASC'], inplace=True)
+        st.table(ban_red_df.style.format(precision=2))
 
 with presence_tab:
     champions = pd.DataFrame(run_query(CHAMPION_ROLE_QUERY), columns=['pick', 'role']).T.to_dict().values()

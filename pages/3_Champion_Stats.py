@@ -56,15 +56,19 @@ with matchup_tab:
     pick_column2 = col3.selectbox('Column 2', [c for c in sort_columns if c != pick_column1], key='pick_select_col_2')
     pick_sort2 = col4.selectbox('Sort column 2', ['ASC', 'DESC'], key='pick_select_sort_2')
     for _role in all_roles:
+        st.write(champion_matchup_query(
+            patches, phases, teams, tournaments, champion, role=_role, maps=maps))
         temp_against = pd.DataFrame(run_query(champion_matchup_query(
-            patches, phases, teams, roles, tournaments, champion, role=_role, maps=maps, selected_roles=selected_roles)),
+            patches, phases, teams, tournaments, champion, role=_role, maps=maps)),
             columns=['Pick', 'Role', 'Qty Pick', 'Qty Win']
         )
         temp_against.sort_values([pick_column1, pick_column2],
                                  ascending=[pick_sort1 == 'ASC', pick_sort2 == 'ASC'], inplace=True)
         q_against = pd.concat([q_against, temp_against])
+        st.write(champion_matchup_query(
+            patches, phases, teams, tournaments, champion, role=_role, maps=maps, against=False))
         temp_with = pd.DataFrame(run_query(champion_matchup_query(
-            patches, phases, teams, roles, tournaments, champion, role=_role, maps=maps, against=False, selected_roles=selected_roles)),
+            patches, phases, teams, tournaments, champion, role=_role, maps=maps, against=False)),
             columns=['Pick', 'Role', 'Qty Pick', 'Qty Win']
         )
         temp_with.sort_values([pick_column1, pick_column2],
