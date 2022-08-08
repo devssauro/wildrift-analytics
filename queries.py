@@ -15,7 +15,6 @@ PATCHES_QUERY = "SELECT DISTINCT patch FROM picks_bans_df WHERE patch is not nul
 PHASES_QUERY = "SELECT DISTINCT phase FROM picks_bans_df"
 TEAM_QUERY = "SELECT DISTINCT team_tag FROM picks_bans_df"
 ROLE_QUERY = "SELECT DISTINCT role FROM picks_bans_df"
-
 CHAMPION_ROLE_QUERY = "SELECT DISTINCT pick, role FROM picks_bans_df ORDER BY pick"
 
 
