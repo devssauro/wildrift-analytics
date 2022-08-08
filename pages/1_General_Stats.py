@@ -33,7 +33,7 @@ def run_query(query):
 team_tab, player_tab, champion_tab = st.tabs(["Team", "Player", "Champion"])
 
 tournaments = st.sidebar.multiselect(
-    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()), ['VG Open 2022'])
+    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()))
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
 phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))
@@ -51,9 +51,10 @@ with team_tab:
     team_df['%WR'] = (team_df['%WR'] / team_df['QTY Games']) * 100
     team_df['%WR Blue'] = (team_df['%WR Blue'] / team_df['QTY Blue']) * 100
     team_df['%WR Red'] = (team_df['%WR Red'] / team_df['QTY Red']) * 100
-    agt = team_df['AGT'].mean()
-    agt = str(timedelta(seconds=agt)).split(':')
-    agt = f'{agt[1]}:{agt[2][:2]}'
+    # agt = team_df['AGT'].mean()
+    # if agt != np.nan:
+    #     agt = str(timedelta(seconds=agt)).split(':')
+    #     agt = f'{agt[1]}:{agt[2][:2]}'
     for colum in TIME_COLUMNS:
         team_df[colum] = pd.to_datetime(team_df[colum], unit='s').dt.strftime("%M:%S")
         team_df[colum] = team_df[colum].replace(np.nan, '-')

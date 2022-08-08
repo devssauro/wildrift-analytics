@@ -1,2 +1,4 @@
+gsheets
 streamlit
 shillelagh[all]
+sqlalchemy

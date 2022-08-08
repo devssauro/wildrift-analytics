@@ -1,15 +1,40 @@
 import pandas as pd
+from sqlalchemy import create_engine
+import streamlit as st
 
-picks_bans_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/picks_bans'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
+engine = create_engine(
+    "gsheets://",
+    service_account_file='wildriftanalytics-d55bf47170ff.json',
+    catalog={
+        'picks_bans': f'{st.secrets["private_gsheets_url"]}&gid=0&headers=1',
+        'match_stats': f'{st.secrets["private_gsheets_url"]}&gid=1509459185&headers=1',
+        'maps': f'{st.secrets["private_gsheets_url"]}&gid=1449120246&headers=1',
+        'teams': f'{st.secrets["private_gsheets_url"]}&gid=943800948&headers=1',
+        'players': f'{st.secrets["private_gsheets_url"]}&gid=557693227&headers=1',
+        'champions': f'{st.secrets["private_gsheets_url"]}&gid=1455030125&headers=1',
+    }
 )
-match_stats_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/match_stats'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-)
-champion_df = pd.read_csv('champion.csv')
 
+picks_bans_df = pd.read_sql(
+    'SELECT * FROM picks_bans',
+    con=engine
+)
+match_stats_df = pd.read_sql(
+    'SELECT * FROM match_stats',
+    con=engine
+)
+champion_df = pd.read_sql(
+    'SELECT * FROM champions WHERE name IS NOT NULL',
+    con=engine
+)
+teams_df = pd.read_sql(
+    'SELECT * FROM teams WHERE tag IS NOT NULL',
+    con=engine
+)
+players_df = pd.read_sql(
+    'SELECT * FROM players WHERE nickname IS NOT NULL',
+    con=engine
+)
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"
 PATCHES_QUERY = "SELECT DISTINCT patch FROM picks_bans_df WHERE patch is not null"
 PHASES_QUERY = "SELECT DISTINCT phase FROM picks_bans_df"
