@@ -149,7 +149,7 @@ connection.execute(f"""
 connection.close()
 match_stats_columns = [
     "tournament", "team_name", "team_tag", "phase", "patch", "matchup_id",
-    "map_id", "map_number", "side", "length", "length_sec", "winner", "winner_side",
+    "map_number", "side", "length", "length_sec", "winner", "winner_side",
     "ban_1", "ban_2", "ban_3", "ban_4", "ban_5",
     "pick_1", "pick_2", "pick_3", "pick_4", "pick_5",
     "baron_pick", "jungle_pick", "mid_pick", "dragon_pick", "sup_pick",
@@ -160,7 +160,9 @@ match_stats_columns = [
     "dragon_kills", "dragon_deaths", "dragon_assists", "dragon_dmg_taken", "dragon_dmg_dealt", "dragon_total_gold",
     "sup_kills", "sup_deaths", "sup_assists", "sup_dmg_taken", "sup_dmg_dealt", "sup_total_gold"
 ]
-picks_bans_columns = ["tournament", "matchup_id", "map_id", "map_number", "patch", "phase",
- "team_name", "team_tag", "winner", "length", "length_sec", "side",
- "position", "ban_rotation", "ban", "pick_rotation", "pick", "is_blind",
- "role", "player", "kills", "deaths", "assists", "dmg_dealt", "dmg_taken", "total_gold"]
+picks_bans_columns = [
+    "tournament", "matchup_id", "map_id", "map_number", "patch", "phase",
+    "team_name", "team_tag", "winner", "length", "length_sec", "side",
+    "position", "ban_rotation", "ban", "pick_rotation", "pick", "is_blind",
+    "role", "player", "kills", "deaths", "assists", "dmg_dealt", "dmg_taken", "total_gold"
+]

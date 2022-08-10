@@ -1,30 +1,40 @@
 import pandas as pd
+from google.cloud import bigquery
+from google.oauth2 import service_account
 from sqlalchemy import create_engine
 import streamlit as st
 
+credentials = service_account.Credentials.from_service_account_file(
+    st.secrets['gcloud_key_file'],
+    scopes=["https://www.googleapis.com/auth/cloud-platform"],
+)
+client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 engine = create_engine(
     "gsheets://",
     service_account_file='wildriftanalytics-d55bf47170ff.json',
     catalog={
-        'picks_bans': f'{st.secrets["private_gsheets_url"]}&gid=0&headers=1',
-        'match_stats': f'{st.secrets["private_gsheets_url"]}&gid=1509459185&headers=1',
-        'maps': f'{st.secrets["private_gsheets_url"]}&gid=1449120246&headers=1',
-        'teams': f'{st.secrets["private_gsheets_url"]}&gid=943800948&headers=1',
-        'players': f'{st.secrets["private_gsheets_url"]}&gid=557693227&headers=1',
-        'champions': f'{st.secrets["private_gsheets_url"]}&gid=1455030125&headers=1',
+        'picks_bans': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["picks_bans_sheet"]}&headers=1',
+        'match_stats': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["match_stats_sheet"]}&headers=1',
+        'maps': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["maps_sheet"]}&headers=1',
+        'teams': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["teams_sheet"]}&headers=1',
+        'players': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["players_sheet"]}&headers=1',
+        'champions': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["champions_sheet"]}&headers=1',
+        'tournaments': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["tournaments_sheet"]}&headers=1',
     }
 )
 
-picks_bans_df = pd.read_sql(
-    'SELECT * FROM picks_bans',
-    con=engine
-)
-match_stats_df = pd.read_sql(
-    'SELECT * FROM match_stats',
-    con=engine
-)
+picks_bans_df = client.query('SELECT * FROM map_data.picks_bans').to_dataframe()
+match_stats_df = client.query('SELECT * FROM map_data.match_stats').to_dataframe()
+# picks_bans_df = pd.read_sql(
+#     'SELECT * FROM picks_bans',
+#     con=engine
+# )
+# match_stats_df = pd.read_sql(
+#     'SELECT * FROM match_stats',
+#     con=engine
+# )
 champion_df = pd.read_sql(
-    'SELECT * FROM champions WHERE name IS NOT NULL',
+    'SELECT * FROM champions',
     con=engine
 )
 teams_df = pd.read_sql(
@@ -33,6 +43,10 @@ teams_df = pd.read_sql(
 )
 players_df = pd.read_sql(
     'SELECT * FROM players WHERE nickname IS NOT NULL',
+    con=engine
+)
+tournaments_df = pd.read_sql(
+    'SELECT * FROM tournaments WHERE name IS NOT NULL',
     con=engine
 )
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"
@@ -502,9 +516,9 @@ def phases_query(tournaments=None):
         tournaments = []
 
     if len(tournaments) == 1:
-        return f'{PHASES_QUERY} WHERE tournament = "{tournaments[0]}"'
+        return f'{PHASES_QUERY} WHERE phase NOT IN (NULL, "") AND tournament = "{tournaments[0]}"'
     if len(tournaments) > 1:
-        return f'{PHASES_QUERY} WHERE tournament IN ("{format_tournament_tuple(tournaments)}")'
+        return f'{PHASES_QUERY} WHERE phase NOT IN (NULL, "") AND tournament IN ("{format_tournament_tuple(tournaments)}")'
     return PHASES_QUERY
 
 

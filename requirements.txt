@@ -1,4 +1,7 @@
+google-cloud-BigQuery
 gsheets
+pandas-gbq
+pybigquery
 streamlit
 shillelagh[all]
 sqlalchemy
