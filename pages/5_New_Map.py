@@ -207,7 +207,7 @@ for index in range(int(mdn)):
         map_data['patch'] = patch.text_input('Patch', '3.3a', key=f'patch_{index}')
         map_data['length'] = duration.text_input('Duration', key=f'length_{index}')
         map_data['winner'] = winner.selectbox(
-            'winner', [map_data['blue_side_tag'], map_data['red_side_tag']], key=f'winner_{index}')
+            'winner', [map_data['blue_side_tag'], map_data['red_side_tag']], key=f'winner_{index}_{str(uuid.uuid4())}')
         map_data['map_number'] = map_number.text_input('Map Number', index+1, key=f'winner_{index}', disabled=True)
         with kda:
             blue_side, red_side = st.columns(2)
