@@ -8,7 +8,7 @@ __pycache__/
 *.so
 
 wildriftanalytics-bd49d6ebac77.json
-.streamlit
+.streamlit/secrets.toml
 
 # Distribution / packaging
 .Python
