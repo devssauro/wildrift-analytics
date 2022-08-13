@@ -4,6 +4,7 @@ import pandas as pd
 from queries import client
 from sqlalchemy import create_engine
 # from models import Session
+from queries import credentials
 
 st.set_page_config(
     page_title="Home",
@@ -15,7 +16,6 @@ uid = str(uuid.uuid4())
 
 engine = create_engine(
     "gsheets://",
-    # service_account_file=st.secrets['gcloud_key_file'],
     service_account_info=st.secrets['gcp_service_account'],
     catalog={
         'teams': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["teams_sheet"]}&headers=1',
