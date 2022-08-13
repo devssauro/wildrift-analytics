@@ -24,7 +24,6 @@ INT_COLUMNS = ['QTY Games', 'QTY Blue', 'QTY Red']
 TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
 
 
-@st.cache(ttl=600)
 def run_query(query):
     rows = cursor.execute(query)
     return rows.fetchall()
@@ -35,7 +34,7 @@ team_tab, player_tab, champion_tab = st.tabs(["Team", "Player", "Champion"])
 tournaments = st.sidebar.multiselect(
     'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()))
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
-phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
+phases = st.sidebar.multiselect('Fase', [p for p in sum(run_query(phases_query(tournaments)), ()) if p is not None])
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))
 roles = st.sidebar.multiselect('Role', sum(run_query(ROLE_QUERY), ()))
 

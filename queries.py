@@ -1,7 +1,6 @@
 import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
-from sqlalchemy import create_engine
 import streamlit as st
 
 credentials = service_account.Credentials.from_service_account_file(
@@ -9,46 +8,10 @@ credentials = service_account.Credentials.from_service_account_file(
     scopes=["https://www.googleapis.com/auth/cloud-platform"],
 )
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
-engine = create_engine(
-    "gsheets://",
-    service_account_file='wildriftanalytics-d55bf47170ff.json',
-    catalog={
-        'picks_bans': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["picks_bans_sheet"]}&headers=1',
-        'match_stats': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["match_stats_sheet"]}&headers=1',
-        'maps': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["maps_sheet"]}&headers=1',
-        'teams': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["teams_sheet"]}&headers=1',
-        'players': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["players_sheet"]}&headers=1',
-        'champions': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["champions_sheet"]}&headers=1',
-        'tournaments': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["tournaments_sheet"]}&headers=1',
-    }
-)
 
 picks_bans_df = client.query('SELECT * FROM map_data.picks_bans').to_dataframe()
 match_stats_df = client.query('SELECT * FROM map_data.match_stats').to_dataframe()
-# picks_bans_df = pd.read_sql(
-#     'SELECT * FROM picks_bans',
-#     con=engine
-# )
-# match_stats_df = pd.read_sql(
-#     'SELECT * FROM match_stats',
-#     con=engine
-# )
-champion_df = pd.read_sql(
-    'SELECT * FROM champions',
-    con=engine
-)
-teams_df = pd.read_sql(
-    'SELECT * FROM teams WHERE tag IS NOT NULL',
-    con=engine
-)
-players_df = pd.read_sql(
-    'SELECT * FROM players WHERE nickname IS NOT NULL',
-    con=engine
-)
-tournaments_df = pd.read_sql(
-    'SELECT * FROM tournaments WHERE name IS NOT NULL',
-    con=engine
-)
+
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"
 PATCHES_QUERY = "SELECT DISTINCT patch FROM picks_bans_df WHERE patch is not null"
 PHASES_QUERY = "SELECT DISTINCT phase FROM picks_bans_df"
@@ -64,6 +27,49 @@ def format_tournament_tuple(tournaments):
 
 def format_role_coluns_tuple(roles):
     return ', '.join([f'{r}_pick' for r in roles])
+
+
+def champions_query(patches=None, phases=None, teams=None, tournaments=None):
+    if tournaments is None:
+        tournaments = []
+    if teams is None:
+        teams = []
+    if phases is None:
+        phases = []
+    if patches is None:
+        patches = []
+    where_clause = 'WHERE'
+    if len(patches) == 1:
+        where_clause = f"{where_clause} patch = '{patches[0]}'"
+    if len(patches) > 1:
+        where_clause = f"{where_clause} patch IN {tuple(patches)}"
+    if len(phases) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase = '{phases[0]}'"
+    if len(phases) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) > 0 else ''}" \
+                       f" phase IN {tuple(phases)}"
+    if len(teams) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag = '{teams[0]}'"
+    if len(teams) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) > 0 else ''}" \
+                       f" team_tag IN {tuple(teams)}"
+    if len(tournaments) == 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f' tournament = "{tournaments[0]}"'
+    if len(tournaments) > 1:
+        where_clause = f"{where_clause} " \
+                       f"{'AND' if len(patches) + len(phases) + len(teams) > 0 else ''}" \
+                       f' tournament IN ("{format_tournament_tuple(tournaments)}")'
+    return f"""
+        SELECT DISTINCT pick FROM picks_bans_df {where_clause if where_clause != 'WHERE' else ''}
+    """
 
 
 def role_query(champion):

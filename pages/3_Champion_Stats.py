@@ -2,7 +2,7 @@ from shillelagh.backends.apsw.db import connect
 from queries import (
     patches_query, phases_query, teams_query,
     role_query, TOURNAMENT_QUERY,
-    champion_df, general_stats_query,
+    general_stats_query, champions_query,
     champion_maps_query, champion_matchup_query,
     picks_bans_df, match_stats_df
 )
@@ -25,7 +25,6 @@ INT_COLUMNS = ['QTY Games', 'QTY Blue', 'QTY Red']
 TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
 
 
-@st.cache(ttl=600)
 def run_query(query):
     rows = cursor.execute(query)
     return rows.fetchall()
@@ -36,9 +35,9 @@ matchup_tab, players_tab = st.tabs(["Matchups", "Jogadores"])
 tournaments = st.sidebar.multiselect(
     'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()))
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
-phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
+phases = st.sidebar.multiselect('Fase', [p for p in sum(run_query(phases_query(tournaments)), ()) if p is not None])
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))
-champion = st.sidebar.selectbox('Champion', champion_df['name'])
+champion = st.sidebar.selectbox('Champion', sum(run_query(champions_query(patches, phases, teams, tournaments)), ()))
 roles = st.sidebar.multiselect('Role', sum(run_query(role_query(champion)), ()))
 
 with matchup_tab:

@@ -1,7 +1,8 @@
 import uuid
-import json
 import streamlit as st
-from queries import champion_df, players_df, teams_df, tournaments_df, client
+import pandas as pd
+from queries import client
+from sqlalchemy import create_engine
 # from models import Session
 
 st.set_page_config(
@@ -11,6 +12,37 @@ st.set_page_config(
 )
 st.title("Register new scrim")
 uid = str(uuid.uuid4())
+
+engine = create_engine(
+    "gsheets://",
+    service_account_file=st.secrets['gcloud_key_file'],
+    catalog={
+        'teams': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["teams_sheet"]}&headers=1',
+        'players': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["players_sheet"]}&headers=1',
+        'champions': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["champions_sheet"]}&headers=1',
+        'tournaments': f'{st.secrets["private_gsheets_url"]}&gid={st.secrets["tournaments_sheet"]}&headers=1',
+    }
+)
+
+
+@st.cache(ttl=300)
+def load_data():
+    return pd.read_sql(
+        'SELECT * FROM champions',
+        con=engine
+    ), pd.read_sql(
+        'SELECT * FROM teams WHERE tag IS NOT NULL',
+        con=engine
+    ), pd.read_sql(
+        'SELECT * FROM players WHERE nickname IS NOT NULL',
+        con=engine
+    ), pd.read_sql(
+        'SELECT * FROM tournaments WHERE name IS NOT NULL',
+        con=engine
+    )
+
+
+champion_df, teams_df, players_df, tournaments_df = load_data()
 
 qtd_games, matchup_id, tournament = st.columns(3)
 
