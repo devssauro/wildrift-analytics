@@ -4,26 +4,27 @@ from sqlalchemy import inspect
 import pandas as pd
 
 
-engine = create_engine(
-    "gsheets://",
-    service_account_file='wildriftanalytics-d55bf47170ff.json',
-    catalog={
-        'picks_bans': 'https://docs.google.com/spreadsheets/d/'
-                      '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=0&headers=1',
-        'match_stats': 'https://docs.google.com/spreadsheets/d/'
-                       '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1509459185&headers=1',
-        'maps': 'https://docs.google.com/spreadsheets/d/'
-                '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1449120246&headers=1',
-        'teams': 'https://docs.google.com/spreadsheets/d/'
-                 '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=943800948&headers=1',
-        'players': 'https://docs.google.com/spreadsheets/d/'
-                   '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=557693227&headers=1',
-        'champions': 'https://docs.google.com/spreadsheets/d/'
-                     '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1455030125&headers=1',
-    }
-)
+# engine = create_engine(
+#     "gsheets://",
+#     service_account_file='wildriftanalytics-d55bf47170ff.json',
+#     catalog={
+#         'picks_bans': 'https://docs.google.com/spreadsheets/d/'
+#                       '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=0&headers=1',
+#         'match_stats': 'https://docs.google.com/spreadsheets/d/'
+#                        '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1509459185&headers=1',
+#         'maps': 'https://docs.google.com/spreadsheets/d/'
+#                 '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1449120246&headers=1',
+#         'teams': 'https://docs.google.com/spreadsheets/d/'
+#                  '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=943800948&headers=1',
+#         'players': 'https://docs.google.com/spreadsheets/d/'
+#                    '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=557693227&headers=1',
+#         'champions': 'https://docs.google.com/spreadsheets/d/'
+#                      '1i-FdBq-wx0ve85WOzVJemfQLycEs2mMuBLU82MtTn6A/edit?gid=1455030125&headers=1',
+#     }
+# )
 aaa = {
   "tournament": "scrim",
+  "phase": None,
   "blue_side_tag": "FLA",
   "blue_baron_player": "Disturbia",
   "blue_jungle_player": "Nagata",
@@ -135,18 +136,18 @@ aaa = {
   "blue_side_team": "Flamengo eSports",
   "red_side_team": "SCAL Esports",
 }
-connection = engine.connect()
+# connection = engine.connect()
 # print(f"""
 #     INSERT INTO maps ({", ".join(aaa.keys())})
 #     VALUES("{'", "'.join([str(aaa[c]) for c in aaa.keys()])}")
 # """)
 # print('", "'.join([str(aaa[c]) for c in aaa.keys()]))
 
-connection.execute(f"""
-    INSERT INTO maps ({", ".join(aaa.keys())}) 
-    VALUES("{'", "'.join([str(aaa[c]) for c in aaa.keys()])}")
-""")
-connection.close()
+# connection.execute(f"""
+#     INSERT INTO maps ({", ".join(aaa.keys())})
+#     VALUES("{'", "'.join([str(aaa[c]) for c in aaa.keys()])}")
+# """)
+# connection.close()
 match_stats_columns = [
     "tournament", "team_name", "team_tag", "phase", "patch", "matchup_id",
     "map_number", "side", "length", "length_sec", "winner", "winner_side",
