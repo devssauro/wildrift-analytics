@@ -8,6 +8,7 @@ __pycache__/
 *.so
 
 wildriftanalytics-d55bf47170ff.json
+.streamlit
 
 # Distribution / packaging
 .Python
