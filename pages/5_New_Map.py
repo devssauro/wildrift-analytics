@@ -30,16 +30,16 @@ engine = create_engine(
 def load_data():
     return pd.read_sql(
         'SELECT * FROM champions',
-        con=engine
+        con=engine.raw_connection()
     ), pd.read_sql(
         'SELECT * FROM teams WHERE tag IS NOT NULL',
-        con=engine
+        con=engine.raw_connection()
     ), pd.read_sql(
         'SELECT * FROM players WHERE nickname IS NOT NULL',
-        con=engine
+        con=engine.raw_connection()
     ), pd.read_sql(
         'SELECT * FROM tournaments WHERE name IS NOT NULL',
-        con=engine
+        con=engine.raw_connection()
     )
 
 
