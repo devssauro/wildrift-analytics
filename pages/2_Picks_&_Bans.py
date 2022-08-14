@@ -348,31 +348,31 @@ with presence_tab:
                 'champion': c['pick'],
                 'picks': qty_picks,
                 'bans': qty_bans,
-                'win': qty_win,
-                'presence': qty_presence,
+                # 'win': qty_win,
+                # 'presence': qty_presence,
                 '%win': np.nan if qty_picks == 0 else round((qty_win / qty_picks) * 100, 2),
                 '%pres': np.nan if qty_presence == 0 else round((qty_presence / total_games) * 100, 2),
             }
             if c['role'] is not None:
-                data[c['role']].append({**_temp, 'presence': _temp['picks'] + _temp['bans']})
+                data[c['role']].append({**_temp})
     baron, jungle, mid, dragon, sup = st.columns(len(roles))
     with baron:
         st.title('Baron')
         baron_df = pd.DataFrame(data['baron'])
-        st.dataframe(baron_df.style.format(precision=2))
+        st.table(baron_df.style.format(precision=2))
     with jungle:
         st.title('Jungle')
         jungle_df = pd.DataFrame(data['jungle'])
-        st.dataframe(jungle_df.style.format(precision=2))
+        st.table(jungle_df.style.format(precision=2))
     with mid:
         st.title('Mid')
         mid_df = pd.DataFrame(data['mid'])
-        st.dataframe(mid_df.style.format(precision=2))
+        st.table(mid_df.style.format(precision=2))
     with dragon:
         st.title('Dragon')
         dragon_df = pd.DataFrame(data['dragon'])
-        st.dataframe(dragon_df.style.format(precision=2))
+        st.table(dragon_df.style.format(precision=2))
     with sup:
         st.title('Sup')
         sup_df = pd.DataFrame(data['sup'])
-        st.dataframe(sup_df.style.format(precision=2))
+        st.table(sup_df.style.format(precision=2))
