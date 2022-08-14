@@ -262,7 +262,7 @@ for index in range(int(mdn)):
                 map_data['blue_pick_3'], map_data['red_pick_3'],
                 map_data['red_ban_4'], map_data['blue_ban_4'],
                 map_data['red_ban_5'], map_data['blue_ban_5']
-            )]], 0, key=f'red_ban_4_{index}')
+            )]], 0, key=f'red_pick_4_{index}')
         map_data['blue_pick_4'] = blue_picks.selectbox(
             'Blue Pick 4', ['Nenhum', *[c for c in champion_df['name'] if c not in (
                 map_data['blue_ban_1'], map_data['red_ban_1'],
