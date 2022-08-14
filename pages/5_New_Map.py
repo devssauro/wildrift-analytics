@@ -143,32 +143,163 @@ for index in range(int(mdn)):
 
     with picks_bans:
         blue_bans, blue_picks, red_picks, red_bans = st.columns(4)
-        with blue_bans:
-            map_data['blue_ban_1'] = st.selectbox('Blue Ban 1', champion_df['name'], 53, key=f'blue_ban_1_{index}')
-            map_data['blue_ban_2'] = st.selectbox('Blue Ban 2', champion_df['name'], 53, key=f'blue_ban_2_{index}')
-            map_data['blue_ban_3'] = st.selectbox('Blue Ban 3', champion_df['name'], 53, key=f'blue_ban_3_{index}')
-            map_data['blue_ban_4'] = st.selectbox('Blue Ban 4', champion_df['name'], 53, key=f'blue_ban_4_{index}')
-            map_data['blue_ban_5'] = st.selectbox('Blue Ban 5', champion_df['name'], 53, key=f'blue_ban_5_{index}')
-        with blue_picks:
-            map_data['blue_pick_1'] = st.selectbox('Blue Pick 1', champion_df['name'], 53, key=f'blue_pick_1_{index}')
-            map_data['blue_pick_2'] = st.selectbox('Blue Pick 2', champion_df['name'], 53, key=f'blue_pick_2_{index}')
-            map_data['blue_pick_3'] = st.selectbox('Blue Pick 3', champion_df['name'], 53, key=f'blue_pick_3_{index}')
-            map_data['blue_pick_4'] = st.selectbox('Blue Pick 4', champion_df['name'], 53, key=f'blue_pick_4_{index}')
-            map_data['blue_pick_5'] = st.selectbox('Blue Pick 5', champion_df['name'], 53, key=f'blue_pick_5_{index}')
-
-        with red_picks:
-            map_data['red_pick_1'] = st.selectbox('Red Pick 1', champion_df['name'], 53, key=f'red_pick_1_{index}')
-            map_data['red_pick_2'] = st.selectbox('Red Pick 2', champion_df['name'], 53, key=f'red_pick_2_{index}')
-            map_data['red_pick_3'] = st.selectbox('Red Pick 3', champion_df['name'], 53, key=f'red_pick_3_{index}')
-            map_data['red_pick_4'] = st.selectbox('Red Pick 4', champion_df['name'], 53, key=f'red_pick_4_{index}')
-            map_data['red_pick_5'] = st.selectbox('Red Pick 5', champion_df['name'], 53, key=f'red_pick_5_{index}')
-
-        with red_bans:
-            map_data['red_ban_1'] = st.selectbox('Red Ban 1', champion_df['name'], 53, key=f'red_ban_1_{index}')
-            map_data['red_ban_2'] = st.selectbox('Red Ban 2', champion_df['name'], 53, key=f'red_ban_2_{index}')
-            map_data['red_ban_3'] = st.selectbox('Red Ban 3', champion_df['name'], 53, key=f'red_ban_3_{index}')
-            map_data['red_ban_4'] = st.selectbox('Red Ban 4', champion_df['name'], 53, key=f'red_ban_4_{index}')
-            map_data['red_ban_5'] = st.selectbox('Red Ban 5', champion_df['name'], 53, key=f'red_ban_5_{index}')
+        map_data['blue_ban_1'] = blue_bans.selectbox(
+            'Blue Ban 1', ['Nenhum', *champion_df['name']], 0, key=f'blue_ban_1_{index}')
+        map_data['red_ban_1'] = red_bans.selectbox(
+            'Red Ban 1', ['Nenhum', *[c for c in champion_df['name'] if c != map_data['blue_ban_1']]], 0, key=f'red_ban_1_{index}')
+        map_data['blue_ban_2'] = blue_bans.selectbox(
+            'Blue Ban 2', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1']
+            )]], 0, key=f'blue_ban_2_{index}')
+        map_data['red_ban_2'] = red_bans.selectbox(
+            'Red Ban 2', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2']
+            )]], 0, key=f'red_ban_2_{index}')
+        map_data['blue_ban_3'] = blue_bans.selectbox(
+            'Blue Ban 3', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2']
+            )]], 0, key=f'blue_ban_3_{index}')
+        map_data['red_ban_3'] = red_bans.selectbox(
+            'Red Ban 3', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3']
+            )]], 0, key=f'red_ban_3_{index}')
+        map_data['blue_pick_1'] = blue_picks.selectbox(
+            'Blue Pick 1', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3']
+            )]], 0, key=f'blue_pick_1_{index}')
+        map_data['red_pick_1'] = red_picks.selectbox(
+            'Red Pick 1', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1']
+            )]], 0, key=f'red_pick_1_{index}')
+        map_data['red_pick_2'] = red_picks.selectbox(
+            'Red Pick 2', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1']
+            )]], 0, key=f'red_pick_2_{index}')
+        map_data['blue_pick_2'] = blue_picks.selectbox(
+            'Blue Pick 2', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2']
+            )]], 0, key=f'blue_pick_2_{index}')
+        map_data['blue_pick_3'] = blue_picks.selectbox(
+            'Blue Pick 3', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2']
+            )]], 0, key=f'blue_pick_3_{index}')
+        map_data['red_pick_3'] = red_picks.selectbox(
+            'Red Pick 3', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3']
+            )]], 0, key=f'red_pick_3_{index}')
+        map_data['red_ban_4'] = red_bans.selectbox(
+            'Red Ban 4', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3']
+            )]], 0, key=f'red_ban_4_{index}')
+        map_data['blue_ban_4'] = blue_bans.selectbox(
+            'Blue Ban 4', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4']
+            )]], 0, key=f'blue_ban_4_{index}')
+        map_data['red_ban_5'] = red_bans.selectbox(
+            'Red Ban 5', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4']
+            )]], 0, key=f'red_ban_5_{index}')
+        map_data['blue_ban_5'] = blue_bans.selectbox(
+            'Blue Ban 5', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4'],
+                map_data['red_ban_5']
+            )]], 0, key=f'blue_ban_5_{index}')
+        map_data['red_pick_4'] = red_picks.selectbox(
+            'Red Pick 4', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4'],
+                map_data['red_ban_5'], map_data['blue_ban_5']
+            )]], 0, key=f'red_ban_4_{index}')
+        map_data['blue_pick_4'] = blue_picks.selectbox(
+            'Blue Pick 4', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4'],
+                map_data['red_ban_5'], map_data['blue_ban_5'],
+                map_data['red_pick_4']
+            )]], 0, key=f'blue_pick_4_{index}')
+        map_data['blue_pick_5'] = blue_picks.selectbox(
+            'Blue Pick 5', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4'],
+                map_data['red_ban_5'], map_data['blue_ban_5'],
+                map_data['red_pick_4'], map_data['blue_pick_4']
+            )]], 0, key=f'blue_pick_5_{index}')
+        map_data['red_pick_5'] = red_picks.selectbox(
+            'Red Pick 5', ['Nenhum', *[c for c in champion_df['name'] if c not in (
+                map_data['blue_ban_1'], map_data['red_ban_1'],
+                map_data['blue_ban_2'], map_data['red_ban_2'],
+                map_data['blue_ban_3'], map_data['red_ban_3'],
+                map_data['blue_pick_1'], map_data['red_pick_1'],
+                map_data['red_pick_2'], map_data['blue_pick_2'],
+                map_data['blue_pick_3'], map_data['red_pick_3'],
+                map_data['red_ban_4'], map_data['blue_ban_4'],
+                map_data['red_ban_5'], map_data['blue_ban_5'],
+                map_data['red_pick_4'], map_data['blue_pick_4'],
+                map_data['blue_pick_5']
+            )]], 0, key=f'blue_red_5_{index}')
 
     with draft:
         blue_champions = [map_data.get(f'blue_pick_{n}')
@@ -183,11 +314,11 @@ for index in range(int(mdn)):
             map_data['blue_jungle_pick'] = st.selectbox(
                 'Blue Jungle Pick', blue_champions, 1, key=f'blue_jungle_pick_{index}')
             map_data['blue_mid_pick'] = st.selectbox(
-                'Blue Mid Pick', blue_champions, 0, key=f'blue_mid_pick_{index}')
+                'Blue Mid Pick', blue_champions, 2, key=f'blue_mid_pick_{index}')
             map_data['blue_dragon_pick'] = st.selectbox(
-                'Blue Dragon Pick', blue_champions, 1, key=f'blue_dragon_pick_{index}')
+                'Blue Dragon Pick', blue_champions, 3, key=f'blue_dragon_pick_{index}')
             map_data['blue_sup_pick'] = st.selectbox(
-                'Blue Sup Pick', blue_champions, 1, key=f'blue_sup_pick_{index}')
+                'Blue Sup Pick', blue_champions, 4, key=f'blue_sup_pick_{index}')
 
         with red_side:
             map_data['red_baron_pick'] = st.selectbox(
@@ -195,11 +326,11 @@ for index in range(int(mdn)):
             map_data['red_jungle_pick'] = st.selectbox(
                 'Red Jungle Pick', red_champions, 1, key=f'red_jungle_pick_{index}')
             map_data['red_mid_pick'] = st.selectbox(
-                'Red Mid Pick', red_champions, 0, key=f'red_mid_pick_{index}')
+                'Red Mid Pick', red_champions, 2, key=f'red_mid_pick_{index}')
             map_data['red_dragon_pick'] = st.selectbox(
-                'Red Dragon Pick', red_champions, 1, key=f'red_dragon_pick_{index}')
+                'Red Dragon Pick', red_champions, 3, key=f'red_dragon_pick_{index}')
             map_data['red_sup_pick'] = st.selectbox(
-                'Red Sup Pick', red_champions, 1, key=f'red_sup_pick_{index}')
+                'Red Sup Pick', red_champions, 4, key=f'red_sup_pick_{index}')
 
     with map_stats:
         patch, duration, winner, map_number = st.columns(4)
