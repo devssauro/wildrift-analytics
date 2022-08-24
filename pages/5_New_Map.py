@@ -79,7 +79,9 @@ def format_official():
         for side in sides:
             for role in roles:
                 for prop in props:
-                    _map_data[f'{side}_{role}_{prop}'] = int(_map_data[f'{side}_{role}_{prop}'])
+                    print(f"{f'{side}_{role}_{prop}'}: {_map_data[f'{side}_{role}_{prop}']}")
+                    if _map_data[f'{side}_{role}_{prop}'] != '':
+                        _map_data[f'{side}_{role}_{prop}'] = int(_map_data[f'{side}_{role}_{prop}'])
                 k, d, a = _map_data[f'{side}_{role}_kda'].split('/')
                 _map_data[f'{side}_{role}_kills'] = int(k)
                 _map_data[f'{side}_{role}_deaths'] = int(d)
@@ -335,7 +337,7 @@ for index in range(int(mdn)):
     with map_stats:
         patch, duration, winner, map_number = st.columns(4)
         kda, dmg_gold = st.tabs(['KDA', 'DMG & Gold'])
-        map_data['patch'] = patch.text_input('Patch', '3.3a', key=f'patch_{index}')
+        map_data['patch'] = patch.text_input('Patch', '3.3b', key=f'patch_{index}')
         map_data['length'] = duration.text_input('Duration', key=f'length_{index}')
         map_data['winner'] = winner.selectbox(
             'winner', [map_data['blue_side_tag'], map_data['red_side_tag']], key=f'winner_{index}_{str(uuid.uuid4())}')
