@@ -82,6 +82,8 @@ def format_official():
                     print(f"{f'{side}_{role}_{prop}'}: {_map_data[f'{side}_{role}_{prop}']}")
                     if _map_data[f'{side}_{role}_{prop}'] != '':
                         _map_data[f'{side}_{role}_{prop}'] = int(_map_data[f'{side}_{role}_{prop}'])
+                    else:
+                        _map_data[f'{side}_{role}_{prop}'] = None
                 k, d, a = _map_data[f'{side}_{role}_kda'].split('/')
                 _map_data[f'{side}_{role}_kills'] = int(k)
                 _map_data[f'{side}_{role}_deaths'] = int(d)
