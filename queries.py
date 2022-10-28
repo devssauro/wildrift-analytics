@@ -1,13 +1,7 @@
 import pandas as pd
 
-picks_bans_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/picks_bans'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-)
-match_stats_df = pd.read_csv(
-    'https://wrflask.dinossauro.dev/v1/download/match_stats'
-    '?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
-)
+picks_bans_df = pd.read_csv('https://docs.google.com/spreadsheets/d/1lBgkZfa7hakVNY26wmhdLqgtqFwX0t8NTqjpL1YVMSo/export?format=csv&gid=1324570847')
+match_stats_df = pd.read_csv('https://docs.google.com/spreadsheets/d/1lBgkZfa7hakVNY26wmhdLqgtqFwX0t8NTqjpL1YVMSo/export?format=csv&gid=1709316147')
 champion_df = pd.read_csv('champion.csv')
 
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"

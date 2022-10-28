@@ -35,7 +35,7 @@ def run_query(query):
 matchup_tab, players_tab = st.tabs(["Matchups", "Jogadores"])
 
 tournaments = st.sidebar.multiselect(
-    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()), ['VG Open 2022'])
+    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()), ['Wild Circuit: Game Changers 2022 - Brazil'])
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
 phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))
