@@ -39,7 +39,7 @@ tournaments = st.sidebar.multiselect(
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
 phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))
-champion = st.sidebar.selectbox('Champion', champion_df['name'])
+champion = st.sidebar.selectbox('Champion', sum(run_query("SELECT DISTINCT pick FROM picks_bans_df"), ()))
 roles = st.sidebar.multiselect('Role', sum(run_query(role_query(champion)), ()))
 
 with matchup_tab:
