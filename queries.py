@@ -1,7 +1,8 @@
 import pandas as pd
+import streamlit as st
 
-picks_bans_df = pd.read_csv('https://wrflask2.dinossauro.dev//v1/download/picks_bans?auth_token=WyI1MzMxYTNlMzk4NGY0YjMyOGQ1MDBjZGQwOWQ0MGNhYSJd.Y2pblQ.olhl1O9W8qI9hJ0p_riEbQ31B0w&t=8&winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng&first_herald=binary&first_herald_teamfight=binary&first_herald_stealed=binary&second_herald=binary&second_herald_teamfight=binary&second_herald_stealed=binary&first_tower=binary&first_tower_herald=binary&first_drake=binary&first_drake_teamfight=binary&first_drake=binary&first_drake_teamfight=binary&first_drake_stealed=binary&second_drake=binary&second_drake_teamfight=binary&second_drake_stealed=binary&third_drake=binary&third_drake_teamfight=binary&second_drake_stealed=binary')
-match_stats_df = pd.read_csv('https://wrflask2.dinossauro.dev//v1/download/match_stats?auth_token=WyI1MzMxYTNlMzk4NGY0YjMyOGQ1MDBjZGQwOWQ0MGNhYSJd.Y2pblQ.olhl1O9W8qI9hJ0p_riEbQ31B0w&t=8&winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng&first_herald=binary&first_herald_teamfight=binary&first_herald_stealed=binary&second_herald=binary&second_herald_teamfight=binary&second_herald_stealed=binary&first_tower=binary&first_tower_herald=binary&first_drake=binary&first_drake_teamfight=binary&first_drake=binary&first_drake_teamfight=binary&first_drake_stealed=binary&second_drake=binary&second_drake_teamfight=binary&second_drake_stealed=binary&third_drake=binary&third_drake_teamfight=binary&second_drake_stealed=binary')
+picks_bans_df = pd.read_csv(st.secrets['picks_bans_sheet'])
+match_stats_df = pd.read_csv(st.secrets['picks_bans_sheet'])
 champion_df = pd.read_csv('champion.csv')
 
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"
