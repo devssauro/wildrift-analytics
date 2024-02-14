@@ -1,0 +1,141 @@
+tournament,matchup_id,map_id,map_number,patch,phase,team_name,team_tag,winner,length,length_sec,side,position,ban_rotation,ban,pick_rotation,pick,is_blind,role,player,kills,deaths,assists,dmg_dealt,dmg_taken,total_gold
+Scrim Aspira,1,1,1,5.0a,scrim,Team Aspira,ASP,true,14:22,862,blue,1,1,Kassadin,B1,Ornn,true,sup,Pilo,2,2,17,0,0,9235
+Scrim Aspira,1,1,1,5.0a,scrim,Team Aspira,ASP,true,14:22,862,blue,2,1,Syndra,B2/B3,Ezreal,false,dragon,Kimmyzoca,6,2,9,0,0,11095
+Scrim Aspira,1,1,1,5.0a,scrim,Team Aspira,ASP,true,14:22,862,blue,3,1,Soraka,B2/B3,Camille,true,baron,Pacheco,3,1,5,0,0,11077
+Scrim Aspira,1,1,1,5.0a,scrim,Team Aspira,ASP,true,14:22,862,blue,4,2,Jax,B4/B5,Orianna,false,mid,OMP,6,1,12,0,0,12320
+Scrim Aspira,1,1,1,5.0a,scrim,Team Aspira,ASP,true,14:22,862,blue,5,2,Renekton,B4/B5,Kha'Zix,true,jungle,Aspira,3,0,9,0,0,13402
+Scrim Aspira,1,1,1,5.0a,scrim,Undefined Team,None,false,14:22,862,red,1,1,Hecarim,R1/R2,Thresh,false,sup,UNK Support,0,7,5,0,0,7401
+Scrim Aspira,1,1,1,5.0a,scrim,Undefined Team,None,false,14:22,862,red,2,1,Volibear,R1/R2,Zeri,true,dragon,UNK AdCarry,2,3,3,0,0,10062
+Scrim Aspira,1,1,1,5.0a,scrim,Undefined Team,None,false,14:22,862,red,3,1,Aurelion Sol,R3,Akali,true,mid,UNK Mid,3,4,0,0,0,9595
+Scrim Aspira,1,1,1,5.0a,scrim,Undefined Team,None,false,14:22,862,red,4,2,Gwen,R4,Shen,false,baron,UNK Top,0,5,3,0,0,6799
+Scrim Aspira,1,1,1,5.0a,scrim,Undefined Team,None,false,14:22,862,red,5,2,Galio,R5,Vi,false,jungle,UNK Jungle,1,4,4,0,0,8995
+Scrim Aspira,1,2,2,5.0a,scrim,Team Aspira,ASP,false,17:15,1035,blue,1,1,Kassadin,B1,Camille,true,baron,Pacheco,3,2,3,0,0,11028
+Scrim Aspira,1,2,2,5.0a,scrim,Team Aspira,ASP,false,17:15,1035,blue,2,1,Gwen,B2/B3,Senna,true,sup,Pilo,3,2,8,0,0,9548
+Scrim Aspira,1,2,2,5.0a,scrim,Team Aspira,ASP,false,17:15,1035,blue,3,1,Soraka,B2/B3,Seraphine,false,dragon,Kimmyzoca,2,1,6,0,0,10079
+Scrim Aspira,1,2,2,5.0a,scrim,Team Aspira,ASP,false,17:15,1035,blue,4,2,Xin Zhao,B4/B5,Wukong,true,jungle,Aspira,2,5,8,0,0,10899
+Scrim Aspira,1,2,2,5.0a,scrim,Team Aspira,ASP,false,17:15,1035,blue,5,2,Shen,B4/B5,Lucian,true,mid,OMP,5,4,5,0,0,12219
+Scrim Aspira,1,2,2,5.0a,scrim,Undefined Team,None,true,17:15,1035,red,1,1,Hecarim,R1/R2,Dr. Mundo,false,baron,UNK Top,3,5,3,0,0,10167
+Scrim Aspira,1,2,2,5.0a,scrim,Undefined Team,None,true,17:15,1035,red,2,1,Volibear,R1/R2,Xayah,true,dragon,UNK AdCarry,1,3,9,0,0,13464
+Scrim Aspira,1,2,2,5.0a,scrim,Undefined Team,None,true,17:15,1035,red,3,1,Aurelion Sol,R3,Thresh,false,sup,UNK Support,1,3,8,0,0,8677
+Scrim Aspira,1,2,2,5.0a,scrim,Undefined Team,None,true,17:15,1035,red,4,2,Galio,R4,Lee Sin,false,jungle,UNK Jungle,6,2,6,0,0,16467
+Scrim Aspira,1,2,2,5.0a,scrim,Undefined Team,None,true,17:15,1035,red,5,2,Kha'Zix,R5,Orianna,false,mid,UNK Mid,4,1,3,0,0,13476
+Scrim Aspira,1,3,3,5.0a,scrim,Undefined Team,None,true,17:26,1046,blue,1,1,Hecarim,B1,Rakan,true,sup,UNK Support,2,0,8,7777,17754,11055
+Scrim Aspira,1,3,3,5.0a,scrim,Undefined Team,None,true,17:26,1046,blue,2,1,Lulu,B2/B3,Yasuo,true,mid,UNK Mid,5,4,3,14193,95625,11879
+Scrim Aspira,1,3,3,5.0a,scrim,Undefined Team,None,true,17:26,1046,blue,3,1,Camille,B2/B3,Xayah,false,dragon,UNK AdCarry,0,1,8,15438,17672,12607
+Scrim Aspira,1,3,3,5.0a,scrim,Undefined Team,None,true,17:26,1046,blue,4,2,,B4/B5,Lillia,true,jungle,UNK Jungle,6,2,3,23747,43659,14342
+Scrim Aspira,1,3,3,5.0a,scrim,Undefined Team,None,true,17:26,1046,blue,5,2,Wukong,B4/B5,Fiora,false,baron,UNK Top,2,5,7,18866,137664,10984
+Scrim Aspira,1,3,3,5.0a,scrim,Team Aspira,ASP,false,17:26,1046,red,1,1,Volibear,R1/R2,Ornn,true,baron,Pacheco,4,6,5,17921,247156,11184
+Scrim Aspira,1,3,3,5.0a,scrim,Team Aspira,ASP,false,17:26,1046,red,2,1,Aurelion Sol,R1/R2,Ezreal,true,dragon,Kimmyzoca,0,1,4,8571,10388,8792
+Scrim Aspira,1,3,3,5.0a,scrim,Team Aspira,ASP,false,17:26,1046,red,3,1,,R3,Galio,false,sup,Pilo,2,2,8,0,0,9890
+Scrim Aspira,1,3,3,5.0a,scrim,Team Aspira,ASP,false,17:26,1046,red,4,2,Gwen,R4,Orianna,false,mid,OMP,0,1,5,21830,14888,12143
+Scrim Aspira,1,3,3,5.0a,scrim,Team Aspira,ASP,false,17:26,1046,red,5,2,Shen,R5,Jayce,false,jungle,Aspira,6,5,3,25504,70920,13858
+Scrim Aspira,1,4,4,4.3c,scrim,Team Aspira,ASP,true,12:54,774,blue,1,1,Volibear,B1,Camille,true,baron,Pacheco,3,0,3,0,0,10011
+Scrim Aspira,1,4,4,4.3c,scrim,Team Aspira,ASP,true,12:54,774,blue,2,1,Lillia,B2/B3,Leona,true,sup,Pilo,2,1,11,0,0,8372
+Scrim Aspira,1,4,4,4.3c,scrim,Team Aspira,ASP,true,12:54,774,blue,3,1,Singed,B2/B3,Ezreal,false,mid,OMP,5,1,6,0,0,10337
+Scrim Aspira,1,4,4,4.3c,scrim,Team Aspira,ASP,true,12:54,774,blue,4,2,Kayn,B4/B5,Lux,true,dragon,Kimmyzoca,4,1,5,0,0,9274
+Scrim Aspira,1,4,4,4.3c,scrim,Team Aspira,ASP,true,12:54,774,blue,5,2,Kai'Sa,B4/B5,Xin Zhao,true,jungle,Aspira,5,1,6,0,0,10088
+Scrim Aspira,1,4,4,4.3c,scrim,Undefined Team,None,false,12:54,774,red,1,1,Hecarim,R1/R2,Ornn,false,baron,UNK Top,1,3,1,0,0,8133
+Scrim Aspira,1,4,4,4.3c,scrim,Undefined Team,None,false,12:54,774,red,2,1,Wukong,R1/R2,Orianna,true,mid,UNK Mid,1,3,2,0,0,8818
+Scrim Aspira,1,4,4,4.3c,scrim,Undefined Team,None,false,12:54,774,red,3,1,Gwen,R3,Lulu,false,sup,UNK Support,0,4,4,0,0,6337
+Scrim Aspira,1,4,4,4.3c,scrim,Undefined Team,None,false,12:54,774,red,4,2,Vi,R4,Sivir,false,dragon,UNK AdCarry,0,4,1,0,0,8131
+Scrim Aspira,1,4,4,4.3c,scrim,Undefined Team,None,false,12:54,774,red,5,2,Olaf,R5,Lee Sin,false,jungle,UNK Jungle,2,5,1,0,0,9180
+Scrim Aspira,2,5,1,5.0a,scrim,Undefined Team,None,false,27:20,1640,blue,1,1,Vladimir,B1,Volibear,true,jungle,UNK Jungle,2,4,3,0,0,16484
+Scrim Aspira,2,5,1,5.0a,scrim,Undefined Team,None,false,27:20,1640,blue,2,1,Diana,B2/B3,Zyra,false,mid,UNK Mid,2,4,2,0,0,20191
+Scrim Aspira,2,5,1,5.0a,scrim,Undefined Team,None,false,27:20,1640,blue,3,1,Syndra,B2/B3,Sivir,true,dragon,UNK AdCarry,1,4,4,0,0,21441
+Scrim Aspira,2,5,1,5.0a,scrim,Undefined Team,None,false,27:20,1640,blue,4,2,Kai'Sa,B4/B5,Sona,true,sup,UNK Support,0,6,3,0,0,11715
+Scrim Aspira,2,5,1,5.0a,scrim,Undefined Team,None,false,27:20,1640,blue,5,2,Ezreal,B4/B5,Darius,false,baron,UNK Top,4,5,1,0,0,13972
+Scrim Aspira,2,5,1,5.0a,scrim,Team Emerok,EMK,true,27:20,1640,red,1,1,Fiora,R1/R2,Aurelion Sol,true,mid,Sensou Henz,12,1,7,0,0,26792
+Scrim Aspira,2,5,1,5.0a,scrim,Team Emerok,EMK,true,27:20,1640,red,2,1,Jax,R1/R2,Sett,true,baron,Júpiter Moba,3,4,9,0,0,16456
+Scrim Aspira,2,5,1,5.0a,scrim,Team Emerok,EMK,true,27:20,1640,red,3,1,Jayce,R3,Lee Sin,false,jungle,Emerok,1,1,11,0,0,20814
+Scrim Aspira,2,5,1,5.0a,scrim,Team Emerok,EMK,true,27:20,1640,red,4,2,Yuumi,R4,Soraka,false,sup,Riyuuka,1,1,17,0,0,13972
+Scrim Aspira,2,5,1,5.0a,scrim,Team Emerok,EMK,true,27:20,1640,red,5,2,Lulu,R5,Xayah,false,dragon,Noobzinha,6,2,9,0,0,20191
+Scrim Aspira,3,6,1,5.0a,scrim,Team Aspira,ASP,true,15:35,935,blue,1,1,Lee Sin,B1,Senna,true,dragon,OMP,4,0,20,0,0,11453
+Scrim Aspira,3,6,1,5.0a,scrim,Team Aspira,ASP,true,15:35,935,blue,2,1,Aurelion Sol,B2/B3,Camille,true,baron,Pacheco,7,2,13,0,0,13498
+Scrim Aspira,3,6,1,5.0a,scrim,Team Aspira,ASP,true,15:35,935,blue,3,1,Sett,B2/B3,Galio,false,sup,Pilo,10,3,13,0,0,14082
+Scrim Aspira,3,6,1,5.0a,scrim,Team Aspira,ASP,true,15:35,935,blue,4,2,Nautilus,B4/B5,Karma,false,mid,Kimmyzoca,3,0,10,0,0,11550
+Scrim Aspira,3,6,1,5.0a,scrim,Team Aspira,ASP,true,15:35,935,blue,5,2,Jax,B4/B5,Vi,true,jungle,Aspira,3,1,14,0,0,12680
+Scrim Aspira,3,6,1,5.0a,scrim,Undefined Team,None,false,15:35,935,red,1,1,Hecarim,R1/R2,Gragas,true,sup,UNK Support,1,4,4,0,0,8674
+Scrim Aspira,3,6,1,5.0a,scrim,Undefined Team,None,false,15:35,935,red,2,1,Volibear,R1/R2,Varus,false,dragon,UNK AdCarry,1,4,2,0,0,10094
+Scrim Aspira,3,6,1,5.0a,scrim,Undefined Team,None,false,15:35,935,red,3,1,Nami,R3,Akali,true,mid,UNK Mid,0,5,1,0,0,9076
+Scrim Aspira,3,6,1,5.0a,scrim,Undefined Team,None,false,15:35,935,red,4,2,Wukong,R4,Aatrox,false,baron,UNK Top,1,7,1,0,0,8819
+Scrim Aspira,3,6,1,5.0a,scrim,Undefined Team,None,false,15:35,935,red,5,2,Zeri,R5,Xin Zhao,false,jungle,UNK Jungle,3,7,1,0,0,10750
+Scrim Aspira,3,7,2,4.3c,scrim,Undefined Team,None,true,14:06,846,blue,1,1,Hecarim,B1,Yone,true,mid,UNK Mid,3,2,6,17010,36153,10190
+Scrim Aspira,3,7,2,4.3c,scrim,Undefined Team,None,true,14:06,846,blue,2,1,Volibear,B2/B3,Sona,false,sup,UNK Support,1,1,18,9678,18080,9364
+Scrim Aspira,3,7,2,4.3c,scrim,Undefined Team,None,true,14:06,846,blue,3,1,Wukong,B2/B3,Lucian,true,dragon,UNK AdCarry,9,1,7,34760,28520,13306
+Scrim Aspira,3,7,2,4.3c,scrim,Undefined Team,None,true,14:06,846,blue,4,2,Jayce,B4/B5,Evelynn,true,jungle,UNK Jungle,5,0,7,15720,5011,12175
+Scrim Aspira,3,7,2,4.3c,scrim,Undefined Team,None,true,14:06,846,blue,5,2,Aatrox,B4/B5,Renekton,false,baron,UNK Top,3,0,2,13098,159742,11866
+Scrim Aspira,3,7,2,4.3c,scrim,Team Aspira,ASP,false,14:06,846,red,1,1,Lee Sin,R1/R2,Camille,true,baron,Pacheco,1,3,1,12514,90112,9027
+Scrim Aspira,3,7,2,4.3c,scrim,Team Aspira,ASP,false,14:06,846,red,2,1,Yuumi,R1/R2,Galio,true,sup,Pilo,0,4,4,0,0,7342
+Scrim Aspira,3,7,2,4.3c,scrim,Team Aspira,ASP,false,14:06,846,red,3,1,Aurelion Sol,R3,Ezreal,false,dragon,OMP,1,5,3,18778,87948,8637
+Scrim Aspira,3,7,2,4.3c,scrim,Team Aspira,ASP,false,14:06,846,red,4,2,Jax,R4,Karma,false,mid,Kimmyzoca,2,5,1,10097,77292,8261
+Scrim Aspira,3,7,2,4.3c,scrim,Team Aspira,ASP,false,14:06,846,red,5,2,Fiora,R5,Shen,false,jungle,Aspira,0,4,3,9504,96175,8788
+Scrim Aspira,4,8,1,5.0a,scrim,Team Aspira,ASP,true,14:12,852,blue,1,1,Fiora,B1,Volibear,true,jungle,Aspira,3,0,13,13125,12615,11015
+Scrim Aspira,4,8,1,5.0a,scrim,Team Aspira,ASP,true,14:12,852,blue,2,1,Jayce,B2/B3,Camille,true,baron,Pacheco,1,0,9,14824,17080,9259
+Scrim Aspira,4,8,1,5.0a,scrim,Team Aspira,ASP,true,14:12,852,blue,3,1,Jax,B2/B3,Varus,false,dragon,OMP,12,1,8,23574,11352,13995
+Scrim Aspira,4,8,1,5.0a,scrim,Team Aspira,ASP,true,14:12,852,blue,4,2,Zyra,B4/B5,Sett,false,sup,Pilo,2,1,18,0,0,8850
+Scrim Aspira,4,8,1,5.0a,scrim,Team Aspira,ASP,true,14:12,852,blue,5,2,Renekton,B4/B5,Seraphine,true,mid,Kimmyzoca,4,0,11,10780,5797,10375
+Scrim Aspira,4,8,1,5.0a,scrim,Time Shiso,SHI,false,14:12,852,red,1,1,Hecarim,R1/R2,Zeri,true,dragon,Oliver,1,3,1,22940,68352,9719
+Scrim Aspira,4,8,1,5.0a,scrim,Time Shiso,SHI,false,14:12,852,red,2,1,Thresh,R1/R2,Yuumi,true,sup,Lunnarys,1,3,1,5448,17856,8150
+Scrim Aspira,4,8,1,5.0a,scrim,Time Shiso,SHI,false,14:12,852,red,3,1,Aurelion Sol,R3,Wukong,false,jungle,Theyser,0,7,2,6484,144384,7189
+Scrim Aspira,4,8,1,5.0a,scrim,Time Shiso,SHI,false,14:12,852,red,4,2,Syndra,R4,Orianna,false,mid,Wally,0,4,1,14119,57300,8936
+Scrim Aspira,4,8,1,5.0a,scrim,Time Shiso,SHI,false,14:12,852,red,5,2,Soraka,R5,Darius,false,baron,Shiso,0,5,0,11921,130392,9588
+Scrim Aspira,5,9,1,5.0a,scrim,Team Aspira,ASP,true,18:39,1119,blue,1,1,Evelynn,B1,Volibear,true,jungle,Aspira,6,0,5,23727,16149,14215
+Scrim Aspira,5,9,1,5.0a,scrim,Team Aspira,ASP,true,18:39,1119,blue,2,1,Aurelion Sol,B2/B3,Ezreal,false,dragon,OMP,6,0,6,37797,11024,14477
+Scrim Aspira,5,9,1,5.0a,scrim,Team Aspira,ASP,true,18:39,1119,blue,3,1,Vladimir,B2/B3,Karma,false,mid,Flyn,1,1,7,15468,15288,12387
+Scrim Aspira,5,9,1,5.0a,scrim,Team Aspira,ASP,true,18:39,1119,blue,4,2,Xayah,B4/B5,Tryndamere,true,baron,Pacheco,2,2,3,14628,50157,14595
+Scrim Aspira,5,9,1,5.0a,scrim,Team Aspira,ASP,true,18:39,1119,blue,5,2,Varus,B4/B5,Alistar,true,sup,Pilo,1,0,8,0,16839,9243
+Scrim Aspira,5,9,1,5.0a,scrim,Team Shumas,SHU,false,18:39,1119,red,1,1,Hecarim,R1/R2,Morgana,true,dragon,Yutails,0,2,2,15618,42588,10287
+Scrim Aspira,5,9,1,5.0a,scrim,Team Shumas,SHU,false,18:39,1119,red,2,1,Ornn,R1/R2,Jayce,true,mid,Shumas,2,4,1,23254,90575,14308
+Scrim Aspira,5,9,1,5.0a,scrim,Team Shumas,SHU,false,18:39,1119,red,3,1,,R3,Shen,false,jungle,Orochi,1,3,1,9938,67840,11669
+Scrim Aspira,5,9,1,5.0a,scrim,Team Shumas,SHU,false,18:39,1119,red,4,2,Nautilus,R4,Camille,false,baron,Darkzin,0,4,1,15682,143825,11545
+Scrim Aspira,5,9,1,5.0a,scrim,Team Shumas,SHU,false,18:39,1119,red,5,2,Jax,R5,Sona,false,sup,Quartzo,0,3,1,4875,67840,8141
+Scrim Aspira,5,10,2,5.0a,scrim,Team Shumas,SHU,true,20:09,1209,blue,1,1,Volibear,B1,Karma,true,mid,Shumas,5,4,14,0,0,13498
+Scrim Aspira,5,10,2,5.0a,scrim,Team Shumas,SHU,true,20:09,1209,blue,2,1,Hecarim,B2/B3,Kha'Zix,true,jungle,Yutails,6,2,9,0,0,14764
+Scrim Aspira,5,10,2,5.0a,scrim,Team Shumas,SHU,true,20:09,1209,blue,3,1,Ezreal,B2/B3,Zeri,false,dragon,Orochi,10,3,11,0,0,168688
+Scrim Aspira,5,10,2,5.0a,scrim,Team Shumas,SHU,true,20:09,1209,blue,4,2,Galio,B4/B5,Braum,true,sup,Quartzo,0,2,23,0,0,10276
+Scrim Aspira,5,10,2,5.0a,scrim,Team Shumas,SHU,true,20:09,1209,blue,5,2,Camille,B4/B5,Sett,true,baron,Darkzin,7,4,8,0,0,15416
+Scrim Aspira,5,10,2,5.0a,scrim,Team Aspira,ASP,false,20:09,1209,red,1,1,Evelynn,R1/R2,Lux,false,mid,Flyn,3,5,7,0,0,13886
+Scrim Aspira,5,10,2,5.0a,scrim,Team Aspira,ASP,false,20:09,1209,red,2,1,Aurelion Sol,R1/R2,Sivir,true,dragon,OMP,4,5,10,0,0,13776
+Scrim Aspira,5,10,2,5.0a,scrim,Team Aspira,ASP,false,20:09,1209,red,3,1,Vladimir,R3,Vi,false,jungle,Aspira,5,8,6,0,0,14071
+Scrim Aspira,5,10,2,5.0a,scrim,Team Aspira,ASP,false,20:09,1209,red,4,2,Dr. Mundo,R4,Ornn,false,baron,Pacheco,1,4,5,0,0,11699
+Scrim Aspira,5,10,2,5.0a,scrim,Team Aspira,ASP,false,20:09,1209,red,5,2,Orianna,R5,Zyra,false,sup,Pilo,2,6,11,0,0,10145
+Scrim Aspira,5,11,3,5.0a,scrim,Team Aspira,ASP,true,17:16,1036,blue,1,1,Evelynn,B1,Ornn,true,sup,Pilo,2,3,17,0,0,10207
+Scrim Aspira,5,11,3,5.0a,scrim,Team Aspira,ASP,true,17:16,1036,blue,2,1,Vladimir,B2/B3,Karma,false,mid,Flyn,2,2,16,0,0,12637
+Scrim Aspira,5,11,3,5.0a,scrim,Team Aspira,ASP,true,17:16,1036,blue,3,1,Aurelion Sol,B2/B3,Zeri,true,dragon,OMP,9,3,7,0,0,14593
+Scrim Aspira,5,11,3,5.0a,scrim,Team Aspira,ASP,true,17:16,1036,blue,4,2,Sett,B4/B5,Olaf,true,baron,Pacheco,5,4,2,0,0,12557
+Scrim Aspira,5,11,3,5.0a,scrim,Team Aspira,ASP,true,17:16,1036,blue,5,2,Kha'Zix,B4/B5,Xin Zhao,true,jungle,Aspira,7,4,14,0,0,14927
+Scrim Aspira,5,11,3,5.0a,scrim,Team Shumas,SHU,false,17:16,1036,red,1,1,Volibear,R1/R2,Braum,false,sup,Quartzo,1,5,8,0,0,7661
+Scrim Aspira,5,11,3,5.0a,scrim,Team Shumas,SHU,false,17:16,1036,red,2,1,Hecarim,R1/R2,Orianna,true,mid,Shumas,2,3,9,0,0,12177
+Scrim Aspira,5,11,3,5.0a,scrim,Team Shumas,SHU,false,17:16,1036,red,3,1,Ezreal,R3,Lucian,false,dragon,Orochi,3,6,2,0,0,12495
+Scrim Aspira,5,11,3,5.0a,scrim,Team Shumas,SHU,false,17:16,1036,red,4,2,Shen,R4,Vi,false,jungle,Yutails,1,7,6,0,0,10437
+Scrim Aspira,5,11,3,5.0a,scrim,Team Shumas,SHU,false,17:16,1036,red,5,2,Camille,R5,Yone,false,baron,Darkzin,9,4,2,0,0,14290
+Scrim Aspira,6,12,1,5.0a,scrim,Time Shiso,SHI,false,20:36,1236,blue,1,1,Aurelion Sol,B1,Volibear,true,jungle,Theyser,0,5,4,15236,190080,12182
+Scrim Aspira,6,12,1,5.0a,scrim,Time Shiso,SHI,false,20:36,1236,blue,2,1,Diana,B2/B3,Orianna,false,mid,Wally,2,7,1,17499,159232,11653
+Scrim Aspira,6,12,1,5.0a,scrim,Time Shiso,SHI,false,20:36,1236,blue,3,1,Vladimir,B2/B3,Ezreal,true,dragon,Oliver,3,3,1,26614,66944,15682
+Scrim Aspira,6,12,1,5.0a,scrim,Time Shiso,SHI,false,20:36,1236,blue,4,2,Soraka,B4/B5,Irelia,true,baron,Shiso,3,4,2,27157,125300,16297
+Scrim Aspira,6,12,1,5.0a,scrim,Time Shiso,SHI,false,20:36,1236,blue,5,2,Lulu,B4/B5,Leona,true,sup,Lunnarys,0,5,3,5664,148608,9504
+Scrim Aspira,6,12,1,5.0a,scrim,Team Emerok,EMK,true,20:36,1236,red,1,1,Fiora,R1/R2,Hecarim,false,jungle,Emerok,3,1,14,23717,66552,15578
+Scrim Aspira,6,12,1,5.0a,scrim,Team Emerok,EMK,true,20:36,1236,red,2,1,Jax,R1/R2,Syndra,true,mid,Sensou Henz,11,2,8,46221,38916,17390
+Scrim Aspira,6,12,1,5.0a,scrim,Team Emerok,EMK,true,20:36,1236,red,3,1,Jayce,R3,Sivir,false,dragon,Noobzinha,3,1,9,24009,66552,15169
+Scrim Aspira,6,12,1,5.0a,scrim,Team Emerok,EMK,true,20:36,1236,red,4,2,Yuumi,R4,Nami,false,sup,Leite,2,0,17,10647,10403,11943
+Scrim Aspira,6,12,1,5.0a,scrim,Team Emerok,EMK,true,20:36,1236,red,5,2,Renekton,R5,Garen,false,baron,Júpiter Moba,5,4,2,13559,114350,12956
+Scrim Aspira,6,13,2,5.0a,scrim,Team Emerok,EMK,true,18:54,1134,blue,1,1,Fiora,B1,Hecarim,true,jungle,Emerok,2,1,19,15939,23928,15586
+Scrim Aspira,6,13,2,5.0a,scrim,Team Emerok,EMK,true,18:54,1134,blue,2,1,Jax,B2/B3,Kai'Sa,true,mid,Sensou Henz,16,3,6,57090,17016,19925
+Scrim Aspira,6,13,2,5.0a,scrim,Team Emerok,EMK,true,18:54,1134,blue,3,1,Jayce,B2/B3,Nami,true,sup,Riyuuka,1,1,18,9842,10374,10900
+Scrim Aspira,6,13,2,5.0a,scrim,Team Emerok,EMK,true,18:54,1134,blue,4,2,Yuumi,B4/B5,Xayah,false,dragon,Noobzinha,0,2,7,13446,12984,11888
+Scrim Aspira,6,13,2,5.0a,scrim,Team Emerok,EMK,true,18:54,1134,blue,5,2,Renekton,B4/B5,Garen,true,baron,Júpiter Moba,5,4,6,10881,21130,12332
+Scrim Aspira,6,13,2,5.0a,scrim,Time Shiso,SHI,false,18:54,1134,red,1,1,Aurelion Sol,R1/R2,Volibear,false,jungle,Theyser,3,6,5,11543,30107,10804
+Scrim Aspira,6,13,2,5.0a,scrim,Time Shiso,SHI,false,18:54,1134,red,2,1,Vladimir,R1/R2,Ezreal,true,dragon,Oliver,4,5,5,27306,17334,12279
+Scrim Aspira,6,13,2,5.0a,scrim,Time Shiso,SHI,false,18:54,1134,red,3,1,Diana,R3,Twisted Fate,false,mid,Wally,1,5,4,10950,12714,10979
+Scrim Aspira,6,13,2,5.0a,scrim,Time Shiso,SHI,false,18:54,1134,red,4,2,Syndra,R4,Karma,false,sup,Lunnarys,2,5,6,15881,15846,10480
+Scrim Aspira,6,13,2,5.0a,scrim,Time Shiso,SHI,false,18:54,1134,red,5,2,Vex,R5,Darius,false,baron,Shiso,1,3,2,19751,31192,12895
+Scrim Aspira,7,14,1,5.0a,scrim,Team Aspira,ASP,false,17:11,1031,blue,1,1,Yasuo,B1,Volibear,true,jungle,Aspira,7,3,6,0,0,14147
+Scrim Aspira,7,14,1,5.0a,scrim,Team Aspira,ASP,false,17:11,1031,blue,2,1,Vladimir,B2/B3,Camille,false,baron,Pacheco,2,6,1,0,0,10510
+Scrim Aspira,7,14,1,5.0a,scrim,Team Aspira,ASP,false,17:11,1031,blue,3,1,Aurelion Sol,B2/B3,Orianna,true,mid,Kimmyzoca,2,3,4,0,0,11304
+Scrim Aspira,7,14,1,5.0a,scrim,Team Aspira,ASP,false,17:11,1031,blue,4,2,Jax,B4/B5,Varus,true,dragon,OMP,5,4,5,0,0,11610
+Scrim Aspira,7,14,1,5.0a,scrim,Team Aspira,ASP,false,17:11,1031,blue,5,2,Renekton,B4/B5,Nautilus,false,sup,Pilo,0,5,11,0,0,8636
+Scrim Aspira,7,14,1,5.0a,scrim,Team Turzin,TUR,true,17:11,1031,red,1,1,Ornn,R1/R2,Darius,true,baron,Turzin,4,5,6,0,0,11709
+Scrim Aspira,7,14,1,5.0a,scrim,Team Turzin,TUR,true,17:11,1031,red,2,1,Hecarim,R1/R2,Karma,true,sup,Hanabi,0,3,16,0,0,9972
+Scrim Aspira,7,14,1,5.0a,scrim,Team Turzin,TUR,true,17:11,1031,red,3,1,Ezreal,R3,Diana,false,jungle,Cake,7,2,3,0,0,16798
+Scrim Aspira,7,14,1,5.0a,scrim,Team Turzin,TUR,true,17:11,1031,red,4,2,Galio,R4,Sivir,false,dragon,Bruno Henning,6,3,9,0,0,12864
+Scrim Aspira,7,14,1,5.0a,scrim,Team Turzin,TUR,true,17:11,1031,red,5,2,Zeri,R5,Gwen,false,mid,UNK Support,4,3,8,0,0,14212

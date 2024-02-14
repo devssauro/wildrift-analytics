@@ -26,7 +26,7 @@ INT_COLUMNS = ['QTY Games', 'QTY Blue', 'QTY Red']
 TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
 
 
-@st.cache(ttl=600)
+@st.cache_data(ttl=600)
 def run_query(query):
     rows = cursor.execute(query)
     return rows.fetchall()
@@ -53,7 +53,7 @@ def prio_percent_wr(picks: int, games: int, side: str, rotation: str, role: str)
 general_tab, picks_bans_tab, presence_tab = st.tabs(["Geral", "Picks & Bans", "Presença"])
 
 tournaments = st.sidebar.multiselect(
-    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()), ['Wild Circuit: Game Changers 2022 - Brazil'])
+    'Campeonatos', sum(run_query(TOURNAMENT_QUERY), ()))
 patches = st.sidebar.multiselect('Patch', sum(run_query(patches_query(tournaments)), ()))
 phases = st.sidebar.multiselect('Fase', sum(run_query(phases_query(tournaments)), ()))
 teams = st.sidebar.multiselect('Time', sum(run_query(teams_query(tournaments)), ()))

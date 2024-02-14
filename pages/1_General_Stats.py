@@ -24,7 +24,7 @@ INT_COLUMNS = ['QTY Games', 'QTY Blue', 'QTY Red']
 TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
 
 
-@st.cache(ttl=600)
+@st.cache_data(ttl=600)
 def run_query(query):
     rows = cursor.execute(query)
     return rows.fetchall()
