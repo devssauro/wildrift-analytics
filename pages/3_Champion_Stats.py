@@ -28,6 +28,7 @@ TIME_COLUMNS = ['AGT', 'AGT Win', 'AGT Loss']
 
 @st.cache_data(ttl=600)
 def run_query(query):
+    # print(query)
     rows = cursor.execute(query)
     return rows.fetchall()
 
@@ -70,8 +71,6 @@ with matchup_tab:
         temp_with.sort_values([pick_column1, pick_column2],
                               ascending=[pick_sort1 == 'ASC', pick_sort2 == 'ASC'], inplace=True)
         q_with = pd.concat([q_with, temp_with])
-    q_with['%WR'] = (q_with['Qty Win'] / q_with['Qty Pick']) * 100
-    q_against['%WR'] = (q_against['Qty Win'] / q_against['Qty Pick']) * 100
     _col1, _col2 = st.columns(2)
     with _col1:
         st.title('Played With')

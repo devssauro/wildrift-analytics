@@ -4,7 +4,7 @@ import pandas as pd
 connection = connect(':memory:')
 cursor = connection.cursor()
 
-csv_url = 'https://wrflask.dinossauro.dev/v1/download/match_stats?winner_loser=binary&blind_response=binary&pick_rotation=explicit_eng'
+csv_url = 'files/match_stats.csv'
 my_df = pd.read_csv(csv_url)
 PATCHES_QUERY = "SELECT DISTINCT patch FROM my_df"
 PHASES_QUERY = "SELECT DISTINCT phase FROM my_df"
@@ -17,8 +17,7 @@ sql = """
     FROM my_df
     WHERE
         baron_pick != 'Ahri' AND
-        'Ahri' IN (baron_pick, mid_pick) AND
-        map_id IN (1, 22, 24, 8, 9, 13, 16, 30, 18, 60, 103, 123, 144, 155, 162, 171, 180, 183, 191, 209)
+        'Ahri' IN (baron_pick, mid_pick)
     GROUP BY baron_pick
     UNION ALL
     SELECT
@@ -29,8 +28,7 @@ sql = """
     FROM my_df
     WHERE
         baron_pick != 'Ahri' AND
-        'Ahri' IN (baron_pick, mid_pick) AND
-        map_id IN (1, 22, 24, 8, 9, 13, 16, 30, 18, 60, 103, 123, 144, 155, 162, 171, 180, 183, 191, 209)
+        'Ahri' IN (baron_pick, mid_pick)
     GROUP BY baron_pick
     ORDER BY qty_match, qty_win
 """

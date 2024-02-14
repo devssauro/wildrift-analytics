@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 picks_bans_df = pd.read_csv(st.secrets['picks_bans_sheet'])
-match_stats_df = pd.read_csv(st.secrets['picks_bans_sheet'])
+match_stats_df = pd.read_csv(st.secrets['match_stats_sheet'])
 champion_df = pd.read_csv('champion.csv')
 
 TOURNAMENT_QUERY = "SELECT DISTINCT tournament from picks_bans_df"

@@ -66,11 +66,11 @@ with general_tab:
     final_list = []
     wr_list = []
     prio_df = pd.DataFrame(
-        run_query(prio_query(patches=patches, phases=phases, tournaments=tournaments)),
+        run_query(prio_query(patches=patches, phases=phases, tournaments=tournaments, teams=teams)),
         columns=['side', 'pick_rotation', 'role', 'total', 'total_win']
     )
 
-    total_games = run_query(total_games_query(patches=patches, phases=phases, tournaments=tournaments))[0][0]
+    total_games = run_query(total_games_query(patches=patches, phases=phases, tournaments=tournaments, teams=teams))[0][0]
     total_games = {
         'blue': total_games,
         'red': total_games,
@@ -276,7 +276,7 @@ with picks_bans_tab:
         st.title('Pick blue')
         pick_blue_df = pd.DataFrame(
             run_query(picks_bans_query(
-                patches=patches, phases=phases, tournaments=tournaments)),
+                patches=patches, phases=phases, tournaments=tournaments, teams=teams)),
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_blue_df['%WR'] = (pick_blue_df['Qty win'] / pick_blue_df['Qty Pick']) * 100
@@ -287,7 +287,7 @@ with picks_bans_tab:
         st.title('Pick red')
         pick_red_df = pd.DataFrame(
             run_query(picks_bans_query(
-                patches=patches, phases=phases, tournaments=tournaments, side='red')),
+                patches=patches, phases=phases, tournaments=tournaments, teams=teams, side='red')),
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         pick_red_df['%WR'] = (pick_red_df['Qty win'] / pick_red_df['Qty Pick']) * 100
@@ -298,7 +298,7 @@ with picks_bans_tab:
         st.title('Ban blue')
         ban_blue_df = pd.DataFrame(
             run_query(picks_bans_query(
-                patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban')),
+                patches=patches, phases=phases, tournaments=tournaments, teams=teams, pick_ban='ban')),
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         ban_blue_df['%WR'] = (ban_blue_df['Qty win'] / ban_blue_df['Qty Pick']) * 100
@@ -309,7 +309,7 @@ with picks_bans_tab:
         st.title('Ban red')
         ban_red_df = pd.DataFrame(
             run_query(picks_bans_query(
-                patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban', side='red')),
+                patches=patches, phases=phases, tournaments=tournaments, teams=teams, pick_ban='ban', side='red')),
             columns=['Pick', 'Rotation', 'Qty Pick', 'Qty win']
         )
         ban_red_df['%WR'] = (ban_red_df['Qty win'] / ban_red_df['Qty Pick']) * 100
@@ -321,19 +321,19 @@ with presence_tab:
     champions = pd.DataFrame(run_query(CHAMPION_ROLE_QUERY), columns=['pick', 'role']).T.to_dict().values()
     pick_presence = pd.DataFrame(
         run_query(presence_query(
-            patches=patches, phases=phases, tournaments=tournaments)),
+            patches=patches, phases=phases, tournaments=tournaments, teams=teams)),
         columns=['pick', 'role', 'qty_picks', 'qty_win']
     )
     pick_dict = pick_presence.T.to_dict().values()
 
     ban_presence = pd.DataFrame(
         run_query(presence_query(
-            patches=patches, phases=phases, tournaments=tournaments, pick_ban='ban')),
+            patches=patches, phases=phases, tournaments=tournaments, teams=teams, pick_ban='ban')),
         columns=['ban', 'role', 'qty_bans', 'qty_win']
     )
     ban_dict = ban_presence.T.to_dict().values()
     # st.write(ban_dict)
-    total_games = run_query(total_games_query(patches=patches, phases=phases, tournaments=tournaments))[0][0]
+    total_games = run_query(total_games_query(patches=patches, phases=phases, tournaments=tournaments, teams=teams))[0][0]
     roles = ['baron', 'jungle', 'mid', 'dragon', 'sup']
     data = {r: [] for r in roles}
     for c in champions:
